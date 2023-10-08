@@ -6,13 +6,22 @@ use AdinanCenci\AetherMusic\Api\ApiSliderKz;
 
 class SourceSliderKz extends SourceAbstract implements SourceInterface
 {
+    /**
+     * @var AdinanCenci\AetherMusic\Api\ApiSliderKz
+     */
     protected ApiSliderKz $apiSliderKz;
 
+    /**
+     * @param AdinanCenci\AetherMusic\Api\ApiSliderKz $apiSliderKz
+     */
     public function __construct(ApiSliderKz $apiSliderKz)  
     {
         $this->apiSliderKz = $apiSliderKz;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getId() : string 
     {
         return 'sliderkz';

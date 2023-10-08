@@ -30,7 +30,7 @@ $aether->addSource($sliderKz, 10);
 use AdinanCenci\AetherMusic\Description;
 
 $description = Description::createFromArray([
-    'title'  => 'STOLEN WATERS',
+    'title'  => 'Stolen waters',
     'artist' => 'Cain\'s Offering'
 ]);
 

@@ -4,10 +4,22 @@ namespace AdinanCenci\AetherMusic\Sorting;
 use AdinanCenci\AetherMusic\Description;
 use AdinanCenci\AetherMusic\Source\Resource;
 
+/**
+ * 
+ */
 class Comparer 
 {
+    /**
+     * @var AdinanCenci\AetherMusic\Description
+     *   The description of a music.
+     */
     protected Description $description;
 
+    /**
+     * @var string[]
+     *   An array of strings that we want to avoid in a resource, they will
+     *   contribuite negatively against the score.
+     */
     protected array $undesirables;
 
     public function __construct(
@@ -19,10 +31,17 @@ class Comparer
         $this->undesirables = $this->compileUndesirables($undesirables);
     }
 
+    /**
+     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     *
+     * @return AdinanCenci\AetherMusic\Sorting\LikenessScore
+     *   A score of how much $resource matches the $description.
+     */
     public function getLikenessScore(Resource $resource) : LikenessScore 
     {
         $score = new LikenessScore();
 
+        //                weight * score
         $score->setParameters([
             'title'        => 10 * $this->scoreOnTitle($resource),
             'artist'       => 10 * $this->scoreOnArtist($resource),
@@ -34,6 +53,16 @@ class Comparer
         return $score;
     }
 
+    /**
+     * Scores
+     * +1 if $description's title is in the resource.
+     * -1 if it is not.
+     *  0 if $description has no title.
+     *
+     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     *
+     * @return int
+     */
     protected function scoreOnTitle(Resource $resource) : int
     {
         if (!$this->description->title) {
@@ -45,6 +74,13 @@ class Comparer
             : -1;
     }
 
+    /**
+     * same as ::scoreOnTitle()
+     * 
+     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     *
+     * @return int
+     */
     protected function scoreOnArtist(Resource $resource) : int
     {
         if (!$this->description->artist) {
@@ -56,6 +92,13 @@ class Comparer
             : -1;
     }
 
+    /**
+     * same as ::scoreOnTitle()
+     * 
+     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     *
+     * @return int
+     */
     protected function scoreOnSoundtrack(Resource $resource) : int
     {
         if (!$this->description->soundtrack) {
@@ -67,11 +110,25 @@ class Comparer
             : -1;
     }
 
+    /**
+     * Score negative points when matching undesirable terms.
+     *
+     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     *
+     * @return int
+     */
     protected function scoreOnUndesirables(Resource $resource) : int 
     {
         return $this->substrCount($resource->title, $this->undesirables) * -1;
     }
 
+    /**
+     * Score negative points on everything else present on the $resource.
+     *
+     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     *
+     * @return int
+     */
     protected function scoreOnLeftover(Resource $resource) : int 
     {
         $rest = $resource->title;
@@ -101,13 +158,20 @@ class Comparer
     }
 
     /**
-     * Remove undesirable if they actually are part of the the description.
+     * It is possible for $description to include common undesirable terms.
+     * e.g. "Live And Let Die" contains "live".
+     * So we need to white-list them.
+     *
+     * @param string[] $base
+     *
+     * @return string[]
+     *   The array filtered.
      */
-    protected function compileUndesirables(array $terms) : array
+    protected function compileUndesirables(array $base) : array
     {
         $undesirables = [];
 
-        foreach ($terms as $term) {
+        foreach ($base as $term) {
             if ($this->description->title && $this->substrCount($term, $this->description->title)) {
                 continue;
             }
@@ -126,6 +190,17 @@ class Comparer
         return $undesirables;
     }
 
+    /**
+     * Basically substr_count but case insensitive and accept arrays.
+     *
+     * @param string $haystack
+     *
+     * @param string|array $needles
+     *   The terms to search in $haystack.
+     *
+     * @return int
+     *   The number of occurences.
+     */
     protected function substrCount(string $haystack, $needles) : int
     {
         $needles = (array) $needles;

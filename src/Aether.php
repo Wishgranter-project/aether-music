@@ -8,13 +8,16 @@ use AdinanCenci\AetherMusic\Source\Resource;
 class Aether 
 {
     /**
-     * @var SourceInterface[]
+     * @var AdinanCenci\AetherMusic\Source\SourceInterface[]
      */
     protected array $sources;
 
     /**
-     * @param SourceInterface $source
+     * Add a source to the aether.
+     *
+     * @param AdinanCenci\AetherMusic\Source\SourceInterface $source
      * @param int $weight
+     *   The priority, higher priority will be consulted first.
      */
     public function addSource(SourceInterface $source, int $weight) 
     {
@@ -25,9 +28,12 @@ class Aether
     }
 
     /**
-     * @param Description $description
+     * Search for musics in the aether and return resources to play.
      *
-     * @return Resource[]
+     * @param AdinanCenci\AetherMusic\Description $description
+     *   A description of the music.
+     *
+     * @return AdinanCenci\AetherMusic\Source\Resource[]
      */
     public function search(Description $description) : array
     {
@@ -38,10 +44,12 @@ class Aether
             $analyzer = new Analyzer($results);
             $resources = array_merge($resources, $results);
 
+            // Next...
             if ($analyzer->count == 0) {
                 continue;
             }
 
+            // Good enough, let's stop here.
             if ($analyzer->countScoreEqualOrGreaterThan(20) >= 1) {
                 break;
             }
@@ -52,7 +60,17 @@ class Aether
         return $resources;
     }
 
-    protected function searchOnSource(Description $description, SourceInterface $source) 
+    /**
+     * Search for musics in the aether and return resources to play.
+     *
+     * @param AdinanCenci\AetherMusic\Description $description
+     *   A description of the music.
+     * @param AdinanCenci\AetherMusic\Source\SourceInterface $source
+     *   A source of musics.
+     *
+     * @return AdinanCenci\AetherMusic\Source\Resource[]
+     */
+    protected function searchOnSource(Description $description, SourceInterface $source) : array
     {
         $resources = $source->search($description);
         $comparer  = new Comparer($description);
@@ -66,8 +84,8 @@ class Aether
 
     public function sort(Resource $resource1, Resource $resource2) : int 
     {
-        $score1 = 0;
-        $score2 = 0;
+        $score1 = $resource1->likenessScore->total;
+        $score2 = $resource2->likenessScore->total;
 
         if (
             $resource1->id == $resource2->id &&
@@ -75,9 +93,6 @@ class Aether
         ) {
             return 0;
         }
-
-        $score1 = $resource1->likenessScore->total;
-        $score2 = $resource2->likenessScore->total;
 
         if ($score1 == $score2) {
             return 0;

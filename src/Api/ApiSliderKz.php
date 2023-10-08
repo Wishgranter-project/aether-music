@@ -5,6 +5,9 @@ use Psr\Http\Message\RequestInterface;
 
 class ApiSliderKz extends ApiBase 
 {
+    /**
+     * {@inheritdoc}
+     */
     public function search(string $query) : string
     {
         $uri = 'vk_auth.php?q=' . urlencode($query);
@@ -15,11 +18,17 @@ class ApiSliderKz extends ApiBase
         return $json;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFullUrl(string $uri) : string
     {
         return 'https://slider.kz/' . $uri;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function createRequest(string $url) : RequestInterface
     {
         $request = parent::createRequest($url);
@@ -48,6 +57,9 @@ class ApiSliderKz extends ApiBase
         return $request;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getLastQuery() 
     {
         if (session_id()) {
@@ -59,6 +71,9 @@ class ApiSliderKz extends ApiBase
         return null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setLastQuery(string $query) 
     {
         if (session_id()) {

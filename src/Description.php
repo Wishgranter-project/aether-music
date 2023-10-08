@@ -1,6 +1,9 @@
 <?php 
 namespace AdinanCenci\AetherMusic;
 
+/**
+ * Describes a piece of music.
+ */
 class Description 
 {
     protected string $title;
