@@ -13,6 +13,11 @@ class SourceSliderKz extends SourceAbstract implements SourceInterface
         $this->apiSliderKz = $apiSliderKz;
     }
 
+    public function getId() : string 
+    {
+        return 'sliderkz';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -30,8 +35,8 @@ class SourceSliderKz extends SourceAbstract implements SourceInterface
             }
 
             $resources[] = new Resource(
-                'slider_kz',
-                $audio['id'] . '@slider_kz',
+                $this->getId(),
+                $audio['id'],
                 $audio['tit_art'],
                 '',
                 '',

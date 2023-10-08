@@ -3,7 +3,7 @@ namespace AdinanCenci\AetherMusic\Source;
 
 class Resource 
 {
-    protected string $vendor = '';
+    protected string $source = '';
 
     /**
      * Identifier withing the vendor.
@@ -22,23 +22,23 @@ class Resource
     /**
      * An url to a playable multimedia.
      */
-    protected string $source = '';
+    protected string $src = '';
 
     public function __construct(
-        string $vendor,
+        string $source,
         string $id,
         ?string $title,
         ?string $description = '',
         ?string $thumbnail = '',
-        ?string $source = ''
+        ?string $src = ''
     ) 
     {
-        $this->vendor      = $vendor;
+        $this->source      = $source;
         $this->id          = $id;
         $this->title       = $title;
         $this->description = $description;
         $this->thumbnail   = $thumbnail;
-        $this->source      = $source;
+        $this->src         = $src;
     }
 
     public function __get($var) 
@@ -57,8 +57,8 @@ class Resource
     {
         $array = [];
 
-        if (!empty($this->vendor)) {
-            $array['vendor'] = $this->vendor;
+        if (!empty($this->source)) {
+            $array['source'] = $this->source;
         }
 
         if (!empty($this->id)) {
@@ -77,8 +77,8 @@ class Resource
             $array['thumbnail'] = $this->thumbnail;
         }
 
-        if (!empty($this->source)) {
-            $array['source'] = $this->source;
+        if (!empty($this->src)) {
+            $array['src'] = $this->src;
         }
 
         return $array;
@@ -92,12 +92,12 @@ class Resource
     public static function createFromArray(array $array) : Resource
     {
         return new self(
-            !empty($array['vendor']) ? $array['vendor'] : '',
+            !empty($array['source']) ? $array['source'] : '',
             !empty($array['id']) ? $array['id'] : '',
             !empty($array['title']) ? $array['title'] : '',
             !empty($array['description']) ? $array['description'] : '',
             !empty($array['thumbnail']) ? $array['thumbnail'] : '',
-            !empty($array['source']) ? $array['source'] : ''
+            !empty($array['src']) ? $array['src'] : ''
         );
     }
 }

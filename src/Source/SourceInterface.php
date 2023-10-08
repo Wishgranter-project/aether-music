@@ -12,4 +12,6 @@ interface SourceInterface
      *   An array of Resource objects matching $description.
      */
     public function search(Description $description) : array;
+
+    public function getId() : string;
 }

@@ -7,7 +7,9 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Client\ClientInterface;
 
 use AdinanCenci\Psr18\Client;
+use AdinanCenci\Psr17\ResponseFactory;
 use AdinanCenci\Psr17\RequestFactory;
+use AdinanCenci\Psr17\StreamFactory;
 
 abstract class ApiBase 
 {
@@ -28,7 +30,7 @@ abstract class ApiBase
     {
         $this->options        = $options;
         $this->cache          = $cache;
-        $this->httpClient     = $httpClient ? $httpClient : new Client();
+        $this->httpClient     = $httpClient ? $httpClient : new Client(new ResponseFactory(), new StreamFactory());
         $this->requestFactory = $requestFactory ? $requestFactory : new RequestFactory();
     }
 

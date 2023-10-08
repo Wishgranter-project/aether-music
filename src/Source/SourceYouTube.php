@@ -13,6 +13,11 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
         $this->apiYouTube = $apiYouTube;
     }
 
+    public function getId() : string 
+    {
+        return 'youtube';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -30,8 +35,8 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
             }
 
             $resources[] = new Resource(
-                'youtube',
-                $item->id->videoId . '@youtube',
+                $this->getId(),
+                $item->id->videoId,
                 htmlspecialchars_decode($item->snippet->title),
                 htmlspecialchars_decode($item->snippet->description),
                 $item->snippet->thumbnails->default->url

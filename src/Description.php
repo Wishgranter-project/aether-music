@@ -31,6 +31,11 @@ class Description
         return isset($this->{$var});
     }
 
+    public function __toString() 
+    {
+        return $this->title . ' ' . implode(', ', $this->artist) . ' ' . implode(', ', $this->soundtrack);
+    }
+
     /**
      * @param string[] $array
      *

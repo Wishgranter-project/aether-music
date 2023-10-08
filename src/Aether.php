@@ -2,8 +2,10 @@
 namespace AdinanCenci\AetherMusic;
 
 use AdinanCenci\AetherMusic\Source\SourceInterface;
+use AdinanCenci\AetherMusic\Sorting\Comparer;
+use AdinanCenci\AetherMusic\Source\Resource;
 
-class Aether implements SourceInterface 
+class Aether 
 {
     /**
      * @var SourceInterface[]
@@ -17,7 +19,9 @@ class Aether implements SourceInterface
     public function addSource(SourceInterface $source, int $weight) 
     {
         $this->sources[] = [$source, $weight];
-        $this->sortSources();
+        if (count($this->sources) > 1) {
+            $this->sortSources();
+        }
     }
 
     /**
@@ -27,12 +31,57 @@ class Aether implements SourceInterface
      */
     public function search(Description $description) : array
     {
-        $resources = []; // ....
+        $resources = [];
 
-        $sorter = new Sorter($description);
-        usort($resources, [$sorter, 'sort']);
+        $comparer  = new Comparer($description);
+
+        foreach ($this->sources as $source) {
+            $results = $this->searchOnSource($description, $source[0], $comparer);
+            $total   = count($results);
+
+            $resources = array_merge($resources, $results);
+        }
+
+        usort($resources, [$this, 'sort']);
 
         return $resources;
+    }
+
+    protected function searchOnSource(Description $description, SourceInterface $source, Comparer $comparer) 
+    {
+        $resources = $source->search($description);
+
+        foreach ($resources as $resource) {
+            $resource->likenessScore = $comparer->getLikenessScore($resource);
+        }
+
+        usort($resources, [$this, 'sort']);
+
+        return $resources;
+    }
+
+    public function sort(Resource $resource1, Resource $resource2) : int 
+    {
+        $score1 = 0;
+        $score2 = 0;
+
+        if (
+            $resource1->id == $resource2->id &&
+            $resource1->source == $resource2->source
+        ) {
+            return 0;
+        }
+
+        $score1 = $resource1->likenessScore->total;
+        $score2 = $resource2->likenessScore->total;
+
+        if ($score1 == $score2) {
+            return 0;
+        }
+
+        return $score1 > $score2
+            ? -1
+            :  1;
     }
 
     protected function sortSources() 
@@ -48,3 +97,4 @@ class Aether implements SourceInterface
                 : 1;
         });
     }
+}
