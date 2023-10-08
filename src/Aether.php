@@ -33,13 +33,18 @@ class Aether
     {
         $resources = [];
 
-        $comparer  = new Comparer($description);
-
         foreach ($this->sources as $source) {
-            $results = $this->searchOnSource($description, $source[0], $comparer);
-            $total   = count($results);
-
+            $results = $this->searchOnSource($description, $source[0]);
+            $averageScore = $this->getAverageScore($results, $count);
             $resources = array_merge($resources, $results);
+
+            if ($count == 0) {
+                continue;
+            }
+
+            if ($averageScore > 15) {
+                break;
+            }
         }
 
         usort($resources, [$this, 'sort']);
@@ -47,9 +52,31 @@ class Aether
         return $resources;
     }
 
-    protected function searchOnSource(Description $description, SourceInterface $source, Comparer $comparer) 
+    protected function getAverageScore(array $resources, &$count = 0) : float 
+    {
+        $total = 0;
+        $count = count($resources);
+
+        if ($count == 0) {
+            return 0;
+        }
+
+        foreach ($resources as $resource) {
+            $total += $resource->likenessScore->total;
+        }
+
+        if ($total == 0 || $count == 0) {
+            return 0;
+        }
+
+        return $total / $count;
+    }
+
+
+    protected function searchOnSource(Description $description, SourceInterface $source) 
     {
         $resources = $source->search($description);
+        $comparer  = new Comparer($description);
 
         foreach ($resources as $resource) {
             $resource->likenessScore = $comparer->getLikenessScore($resource);
