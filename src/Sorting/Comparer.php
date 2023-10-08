@@ -5,7 +5,7 @@ use AdinanCenci\AetherMusic\Description;
 use AdinanCenci\AetherMusic\Source\Resource;
 
 /**
- * 
+ * Compares the description of a music against online resources.
  */
 class Comparer 
 {
@@ -35,7 +35,7 @@ class Comparer
      * @param AdinanCenci\AetherMusic\Source\Resource $resource
      *
      * @return AdinanCenci\AetherMusic\Sorting\LikenessScore
-     *   A score of how much $resource matches the $description.
+     *   A score of how closely $resource matches the $description.
      */
     public function getLikenessScore(Resource $resource) : LikenessScore 
     {
