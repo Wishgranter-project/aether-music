@@ -43,6 +43,11 @@ class SourceSliderKz extends SourceAbstract implements SourceInterface
                 continue;
             }
 
+            // This is an issue with SliderKz, sometimes the urls are relative.
+            if (!substr_count($audio['url'], 'https://')) {
+                continue;
+            }
+
             $resources[] = new Resource(
                 $this->getId(),
                 $audio['id'],
