@@ -3,6 +3,7 @@ namespace AdinanCenci\AetherMusic\Sorting;
 
 use AdinanCenci\AetherMusic\Description;
 use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Helper\Text;
 
 /**
  * Compares the description of a music against online resources.
@@ -69,7 +70,7 @@ class Comparer
             return 0;
         }
 
-        return $this->substrCount($resource->title, $this->description->title)
+        return Text::substrCount($resource->title, $this->description->title)
             ?  1
             : -1;
     }
@@ -87,7 +88,7 @@ class Comparer
             return 0;
         }
 
-        return $this->substrCount($resource->title, $this->description->artist)
+        return Text::substrCount($resource->title, $this->description->artist)
             ?  1
             : -1;
     }
@@ -105,7 +106,7 @@ class Comparer
             return 0;
         }
 
-        return $this->substrCount($resource->title, $this->description->soundtrack)
+        return Text::substrCount($resource->title, $this->description->soundtrack)
             ?  1
             : -1;
     }
@@ -119,7 +120,7 @@ class Comparer
      */
     protected function scoreOnUndesirables(Resource $resource) : int 
     {
-        return $this->substrCount($resource->title, $this->undesirables) * -1;
+        return Text::substrCount($resource->title, $this->undesirables) * -1;
     }
 
     /**
@@ -172,15 +173,15 @@ class Comparer
         $undesirables = [];
 
         foreach ($base as $term) {
-            if ($this->description->title && $this->substrCount($term, $this->description->title)) {
+            if ($this->description->title && Text::substrCount($term, $this->description->title)) {
                 continue;
             }
 
-            if ($this->description->artist && $this->substrCount($term, $this->description->artist)) {
+            if ($this->description->artist && Text::substrCount($term, $this->description->artist)) {
                 continue;
             }
 
-            if ($this->description->soundtrack && $this->substrCount($term, $this->description->soundtrack)) {
+            if ($this->description->soundtrack && Text::substrCount($term, $this->description->soundtrack)) {
                 continue;
             }
 
