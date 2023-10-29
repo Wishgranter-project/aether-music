@@ -67,7 +67,7 @@ class Analyzer
      *
      * @return int
      */
-    public function countScoreEqualOrGreaterThan(int $minScore) : int
+    public function countResultsScoringAtLeast(int $minScore) : int
     {
         $count = 0;
 

@@ -13,7 +13,8 @@ abstract class SourceAbstract
             $parts[] = $description->title;
         }
 
-        // It is more likely for the music to be known for the soundtrack than the artist.
+        // It is more likely for the music to be known for the soundtrack than
+        // the artist, so we give it precedence.
         if (!empty($description->soundtrack)) {
             $parts[] = $description->soundtrack[0];
         } else if (!empty($description->artist)) {

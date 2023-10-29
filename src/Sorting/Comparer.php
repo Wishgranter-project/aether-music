@@ -23,6 +23,12 @@ class Comparer
      */
     protected array $undesirables;
 
+    /**
+     * @param AdinanCenci\AetherMusic\Description $description
+     *   The description of a music.
+     * @param string[] $undesirables
+     *   An array of strings that we rather not see in a resource.
+     */
     public function __construct(
         Description $description, 
         array $undesirables = ['cover', 'acoustic', 'live', 'demo', 'demotape', 'remixed', 'remix']
@@ -33,6 +39,8 @@ class Comparer
     }
 
     /**
+     * Returns a LikenessScore of how much a Resource matches our Description.
+     *
      * @param AdinanCenci\AetherMusic\Source\Resource $resource
      *
      * @return AdinanCenci\AetherMusic\Sorting\LikenessScore

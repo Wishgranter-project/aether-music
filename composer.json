@@ -2,6 +2,7 @@
     "name": "adinan-cenci/aether-music",
     "description": "Eather music",
     "type": "library",
+    "license": "MIT",
     "repositories": [
         {
             "type": "vcs",

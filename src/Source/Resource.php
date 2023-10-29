@@ -3,27 +3,48 @@ namespace AdinanCenci\AetherMusic\Source;
 
 class Resource 
 {
+    /**
+     * @var string
+     *   The id of the source object that instantiated this resource.
+     */
     protected string $source = '';
 
     /**
-     * Identifier withing the vendor.
+     * @var string
+     *  Unique identifier withing the vendor.
      */
     protected string $id = '';
 
+    /**
+     * @var string
+     */
     protected string $title = '';
 
+    /**
+     * @var string
+     */
     protected string $description = '';
 
     /**
-     * An url to a thumbnail picture.
+     * @var string
+     *   An URL to a thumbnail picture.
      */
     protected string $thumbnail = '';
 
     /**
-     * An url to a playable multimedia.
+     * @var string
+     *   An url to a playable multimedia, like a mp4 file for example.
      */
     protected string $src = '';
 
+    /**
+     * @param string $source
+     * @param string $id
+     * @param string|null $title
+     * @param string|null $description
+     * @param string|null $thumbnail
+     * @param string|null src
+     */
     public function __construct(
         string $source,
         string $id,
@@ -53,6 +74,11 @@ class Resource
         return isset($this->{$var});
     }
 
+    /**
+     * Casts down the object into an array.
+     *
+     * @return array
+     */
     public function toArray() : array
     {
         $array = [];

@@ -8,7 +8,7 @@ abstract class Text
      *
      * @param string $haystack
      *
-     * @param string|array $needles
+     * @param string|string[] $needles
      *   The terms to search in $haystack.
      *
      * @return int
@@ -16,11 +16,12 @@ abstract class Text
      */
     public static function substrCount(string $haystack, $needles) : int
     {
-        $needles = (array) $needles;
+        $haystack = strtolower($haystack);
+        $needles  = (array) $needles;
 
         $count = 0;
         foreach ($needles as $needle) {
-            $count += substr_count(strtolower($haystack), strtolower($needle));
+            $count += substr_count($haystack, strtolower($needle));
         }
 
         return $count;

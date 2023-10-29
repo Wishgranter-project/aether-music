@@ -12,14 +12,31 @@ class Description
 
     protected ?string $album;
 
+    /**
+     * The name of an intelectual property featuring the music in its
+     * soundtrack, a game, a movie etc.
+     */
     protected array $soundtrack;
 
+    /**
+     * @param string $title
+     * @param string|string[]|null $artist
+     * @param string|null $album
+     * @param string|string[]|null $artist
+     */
     public function __construct(string $title, $artist = null, ?string $album = null, $soundtrack = null) 
     {
         $this->title      = $title;
-        $this->artist     = !is_null($artist) ? (array) $artist : [];
-        $this->album      = !$album;
-        $this->soundtrack = !is_null($soundtrack) ? (array) $soundtrack : [];
+
+        $this->artist     = !is_null($artist)
+            ? (array) $artist
+            : [];
+
+        $this->album      = $album;
+
+        $this->soundtrack = !is_null($soundtrack) 
+            ? (array) $soundtrack
+            : [];
     }
 
     public function __get($var) 
@@ -36,7 +53,12 @@ class Description
 
     public function __toString() 
     {
-        return $this->title . ' ' . implode(', ', $this->artist) . ' ' . implode(', ', $this->soundtrack);
+        return 
+        $this->title .
+        ' ' .
+        implode(', ', $this->artist) .
+        ' ' .
+        implode(', ', $this->soundtrack);
     }
 
     /**

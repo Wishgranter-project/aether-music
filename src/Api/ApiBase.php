@@ -32,10 +32,10 @@ abstract class ApiBase
     protected RequestFactoryInterface $requestFactory;
 
     /**
-     * @var Psr\SimpleCache\CacheInterface
+     * @var Psr\SimpleCache\CacheInterface|null
      *   Cache.
      */
-    protected ?CacheInterface $cache;
+    protected ?CacheInterface $cache = null;
 
     /**
      * @param array $options
@@ -44,7 +44,7 @@ abstract class ApiBase
      *   Cache, opcional.
      * @param null|Psr\Http\Client\ClientInterface $httpClient
      *   Optional, the class will use a generic library if not informed.
-     * @param Psr\Http\Message\RequestFactoryInterface $requestFactory
+     * @param Psr\Http\Message\RequestFactoryInterface|null $requestFactory
      *   Optional, the class will use a generic library if not informed.
      */
     public function __construct(
@@ -56,8 +56,14 @@ abstract class ApiBase
     {
         $this->options        = $options;
         $this->cache          = $cache;
-        $this->httpClient     = $httpClient ? $httpClient : new Client(new ResponseFactory(), new StreamFactory());
-        $this->requestFactory = $requestFactory ? $requestFactory : new RequestFactory();
+
+        $this->httpClient     = $httpClient
+            ? $httpClient
+            : new Client(new ResponseFactory(), new StreamFactory());
+
+        $this->requestFactory = $requestFactory 
+            ? $requestFactory
+            : new RequestFactory();
     }
 
     /**

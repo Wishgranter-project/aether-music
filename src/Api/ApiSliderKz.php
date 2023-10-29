@@ -58,9 +58,9 @@ class ApiSliderKz extends ApiBase
     }
 
     /**
-     * {@inheritdoc}
+     * Returns from the session the last query.
      */
-    protected function getLastQuery() 
+    protected function getLastQuery() : ?string
     {
         if (session_id()) {
             return isset($_SESSION['sliderKzLastQuery'])
@@ -72,7 +72,7 @@ class ApiSliderKz extends ApiBase
     }
 
     /**
-     * {@inheritdoc}
+     * Saves the last query in the session.
      */
     protected function setLastQuery(string $query) 
     {

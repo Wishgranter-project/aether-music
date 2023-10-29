@@ -13,7 +13,7 @@ class Aether
     protected array $sources;
 
     /**
-     * Add a source to the aether.
+     * Add a source.
      *
      * @param AdinanCenci\AetherMusic\Source\SourceInterface $source
      * @param int $weight
@@ -28,7 +28,7 @@ class Aether
     }
 
     /**
-     * Search for musics in the aether and return resources to play.
+     * Search for musics in the provided sources and return Resources to play.
      *
      * @param AdinanCenci\AetherMusic\Description $description
      *   A description of the music.
@@ -50,7 +50,7 @@ class Aether
             }
 
             // Good enough, let's stop here.
-            if ($analyzer->countScoreEqualOrGreaterThan(20) >= 1) {
+            if ($analyzer->countResultsScoringAtLeast(20) >= 1) {
                 break;
             }
         }
@@ -61,7 +61,7 @@ class Aether
     }
 
     /**
-     * Search for musics in the aether and return resources to play.
+     * Search for musics in the specified source and return resources to play.
      *
      * @param AdinanCenci\AetherMusic\Description $description
      *   A description of the music.
@@ -82,6 +82,9 @@ class Aether
         return $resources;
     }
 
+    /**
+     * Sort Resources based on their likeness score.
+     */
     public function sort(Resource $resource1, Resource $resource2) : int 
     {
         $score1 = $resource1->likenessScore->total;
@@ -103,6 +106,9 @@ class Aether
             :  1;
     }
 
+    /**
+     * Sort sources based on their weight.
+     */
     protected function sortSources() 
     {
         usort($this->sources, function($s1, $s2) 
