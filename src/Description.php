@@ -6,15 +6,33 @@ namespace AdinanCenci\AetherMusic;
  */
 class Description 
 {
+    /**
+     * @var string
+     *   The title of the music.
+     */
     protected string $title;
 
+    /**
+     * @var string|string[]
+     *   The performing artist.
+     */
     protected array $artist;
 
+    /**
+     * The name of the album this music can be found in.
+     */
     protected ?string $album;
 
     /**
-     * The name of an intelectual property featuring the music in its
-     * soundtrack, a game, a movie etc.
+     * @var string
+     *   The original artist if the music is being performed by someone else.
+     */
+    protected ?string $cover;
+
+    /**
+     * @var string|string[]
+     *   The name of an intelectual property featuring the music in its
+     *   soundtrack, a game, a movie etc.
      */
     protected array $soundtrack;
 
@@ -24,7 +42,7 @@ class Description
      * @param string|null $album
      * @param string|string[]|null $artist
      */
-    public function __construct(string $title, $artist = null, ?string $album = null, $soundtrack = null) 
+    public function __construct(string $title, $artist = null, ?string $album = null, ?string $cover = null, $soundtrack = null) 
     {
         $this->title      = $title;
 
@@ -33,6 +51,8 @@ class Description
             : [];
 
         $this->album      = $album;
+
+        $this->cover      = $cover;
 
         $this->soundtrack = !is_null($soundtrack) 
             ? (array) $soundtrack
@@ -53,12 +73,72 @@ class Description
 
     public function __toString() 
     {
-        return 
-        $this->title .
-        ' ' .
-        implode(', ', $this->artist) .
-        ' ' .
-        implode(', ', $this->soundtrack);
+        $array = [];
+
+        if ($this->title) {
+            $array['title'] = $this->title;
+        }
+
+        if ($this->artist) {
+            $array['artist'] = count($this->artist) > 1
+                ? implode(', ', $this->artist)
+                : reset($this->artist);
+
+            $array['artist'] = $this->cover
+                ? 'cover by ' . $array['artist']
+                : 'by ' . $array['artist'];
+        }
+
+        if ($this->album) {
+            $array['album'] = $this->album;
+        }
+
+        if ($this->cover) {
+            $array['cover'] = $this->artist
+                ? 'from ' . $this->cover
+                : 'by ' . $this->cover;
+        }
+
+        if ($this->soundtrack) {
+            $array['soundtrack'] = count($this->soundtrack) > 1
+                ? implode(', ', $this->soundtrack)
+                : reset($this->soundtrack);
+
+            $array['soundtrack'] .= ' soundtrack';
+        }
+
+        return implode(', ', $array);
+    }
+
+    public function toArray() : array
+    {
+        $array = [];
+
+        if ($this->title) {
+            $array['title'] = $this->title;
+        }
+
+        if ($this->artist) {
+            $array['artist'] = count($this->artist) > 1
+                ? $this->artist
+                : reset($this->artist);
+        }
+
+        if ($this->album) {
+            $array['album'] = $this->album;
+        }
+
+        if ($this->cover) {
+            $array['cover'] = $this->cover;
+        }
+
+        if ($this->soundtrack) {
+            $array['soundtrack'] = count($this->soundtrack) > 1
+                ? $this->soundtrack
+                : reset($this->soundtrack);
+        }
+
+        return $array;
     }
 
     /**
@@ -72,6 +152,7 @@ class Description
             !empty($array['title']) ? $array['title'] : '',
             !empty($array['artist']) ? $array['artist'] : null,
             !empty($array['album']) ? $array['album'] : null,
+            !empty($array['cover']) ? $array['cover'] : null,
             !empty($array['soundtrack']) ? $array['soundtrack'] : null
         );
     }

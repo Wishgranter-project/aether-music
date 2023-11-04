@@ -8,7 +8,7 @@ use AdinanCenci\AetherMusic\Source\Resource;
 class Aether 
 {
     /**
-     * @var AdinanCenci\AetherMusic\Source\SourceInterface[]
+     * @var (AdinanCenci\AetherMusic\Source\SourceInterface&int)[]
      */
     protected array $sources;
 
@@ -16,15 +16,20 @@ class Aether
      * Add a source.
      *
      * @param AdinanCenci\AetherMusic\Source\SourceInterface $source
-     * @param int $weight
-     *   The priority, higher priority will be consulted first.
+     *   A service providing resources ( music ).
+     * @param int $priority
+     *   The priority, sources with higher priority will be consulted first.
+     *
+     * @return self
      */
-    public function addSource(SourceInterface $source, int $weight) 
+    public function addSource(SourceInterface $source, int $priority) : Aether
     {
-        $this->sources[] = [$source, $weight];
+        $this->sources[] = [$source, $priority];
         if (count($this->sources) > 1) {
             $this->sortSources();
         }
+
+        return $this;
     }
 
     /**
@@ -33,81 +38,15 @@ class Aether
      * @param AdinanCenci\AetherMusic\Description $description
      *   A description of the music.
      *
-     * @return AdinanCenci\AetherMusic\Source\Resource[]
+     * @return AdinanCenci\AetherMusic\Source\Search
      */
-    public function search(Description $description) : array
+    public function search(Description $description) : Search
     {
-        $resources = [];
-
-        foreach ($this->sources as $source) {
-            $results = $this->searchOnSource($description, $source[0]);
-            $analyzer = new Analyzer($results);
-            $resources = array_merge($resources, $results);
-
-            // Next...
-            if ($analyzer->count == 0) {
-                continue;
-            }
-
-            // Good enough, let's stop here.
-            if ($analyzer->countResultsScoringAtLeast(20) >= 1) {
-                break;
-            }
-        }
-
-        usort($resources, [$this, 'sort']);
-
-        return $resources;
+        return new Search($description, $this->sources);
     }
 
     /**
-     * Search for musics in the specified source and return resources to play.
-     *
-     * @param AdinanCenci\AetherMusic\Description $description
-     *   A description of the music.
-     * @param AdinanCenci\AetherMusic\Source\SourceInterface $source
-     *   A source of musics.
-     *
-     * @return AdinanCenci\AetherMusic\Source\Resource[]
-     */
-    protected function searchOnSource(Description $description, SourceInterface $source) : array
-    {
-        $resources = $source->search($description);
-        $comparer  = new Comparer($description);
-
-        foreach ($resources as $resource) {
-            $resource->likenessScore = $comparer->getLikenessScore($resource);
-        }
-
-        return $resources;
-    }
-
-    /**
-     * Sort Resources based on their likeness score.
-     */
-    public function sort(Resource $resource1, Resource $resource2) : int 
-    {
-        $score1 = $resource1->likenessScore->total;
-        $score2 = $resource2->likenessScore->total;
-
-        if (
-            $resource1->id == $resource2->id &&
-            $resource1->source == $resource2->source
-        ) {
-            return 0;
-        }
-
-        if ($score1 == $score2) {
-            return 0;
-        }
-
-        return $score1 > $score2
-            ? -1
-            :  1;
-    }
-
-    /**
-     * Sort sources based on their weight.
+     * Sort sources based on their priority.
      */
     protected function sortSources() 
     {
@@ -119,7 +58,7 @@ class Aether
 
             return $s1[1] > $s2[1]
                 ? -1
-                : 1;
+                :  1;
         });
     }
 }

@@ -54,6 +54,7 @@ class SourceSliderKz extends SourceAbstract implements SourceInterface
                 $audio['tit_art'],
                 '',
                 '',
+                '',
                 $audio['url']
             );
         }

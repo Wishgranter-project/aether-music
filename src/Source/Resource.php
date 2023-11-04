@@ -23,6 +23,11 @@ class Resource
     /**
      * @var string
      */
+    protected string $artist = '';
+
+    /**
+     * @var string
+     */
     protected string $description = '';
 
     /**
@@ -41,6 +46,7 @@ class Resource
      * @param string $source
      * @param string $id
      * @param string|null $title
+     * @param string|null $artist
      * @param string|null $description
      * @param string|null $thumbnail
      * @param string|null src
@@ -49,6 +55,7 @@ class Resource
         string $source,
         string $id,
         ?string $title,
+        ?string $artist,
         ?string $description = '',
         ?string $thumbnail = '',
         ?string $src = ''
@@ -57,6 +64,7 @@ class Resource
         $this->source      = $source;
         $this->id          = $id;
         $this->title       = $title;
+        $this->artist      = $artist;
         $this->description = $description;
         $this->thumbnail   = $thumbnail;
         $this->src         = $src;
@@ -95,6 +103,10 @@ class Resource
             $array['title'] = $this->title;
         }
 
+        if (!empty($this->artist)) {
+            $array['artist'] = $this->artist;
+        }
+
         if (!empty($this->description)) {
             $array['description'] = $this->description;
         }
@@ -105,6 +117,13 @@ class Resource
 
         if (!empty($this->src)) {
             $array['src'] = $this->src;
+        }
+
+        if ($this->likenessTally) {
+            $array['likenessTally'] = array_filter($this->likenessTally->toArray(), function($c) 
+            {
+                return isset($c['score']) && $c['score'] != 0 || !is_array($c);
+            });
         }
 
         return $array;
@@ -121,6 +140,7 @@ class Resource
             !empty($array['source']) ? $array['source'] : '',
             !empty($array['id']) ? $array['id'] : '',
             !empty($array['title']) ? $array['title'] : '',
+            !empty($array['artist']) ? $array['artist'] : '',
             !empty($array['description']) ? $array['description'] : '',
             !empty($array['thumbnail']) ? $array['thumbnail'] : '',
             !empty($array['src']) ? $array['src'] : ''

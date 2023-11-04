@@ -47,6 +47,7 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
                 $this->getId(),
                 $item->id->videoId,
                 htmlspecialchars_decode($item->snippet->title),
+                '',
                 htmlspecialchars_decode($item->snippet->description),
                 $item->snippet->thumbnails->default->url
             );

@@ -36,7 +36,7 @@ class Analyzer
         }
 
         foreach ($results as $resource) {
-            $total += $resource->likenessScore->total;
+            $total += $resource->likenessTally->total;
         }
 
         if ($total == 0) {
@@ -72,7 +72,7 @@ class Analyzer
         $count = 0;
 
         foreach ($this->results as $r) {
-            $count += $r->likenessScore->total >= $minScore
+            $count += $r->likenessTally->total >= $minScore
                 ? 1
                 : 0;
         }
