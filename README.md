@@ -60,9 +60,9 @@ $resources = $aether
 
 ## 4. Bettering our results
 
-That's the basics, but the sources are fickle, depending on how unpupular our music is or how popular different music with similar descriptions are, our target may not be the very first in the search results, it may come second, third or further down.
+That's the basics, but the sources are fickle, depending on how unpopular our music is or how popular different music with similar descriptions are, our target may not be the very first in the search results, it may come second, third or further down.
 
-To solve this issue the search functionality sports a sorting algorithm to place resources that better fit the description, placing them higher in the results.
+To solve this issue the search functionality sports a sorting algorithm to place resources that better fit the description, higher in the results.
 
 The `::addDefaultCriteria()` method sets up a built-in pre set of criteria and I find it really good at sorting results.
 
