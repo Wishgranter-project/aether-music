@@ -73,13 +73,13 @@ class Search
     public function addDefaultCriteria() : Search
     {
         $undesirables = [
-            'cover'    => 1,
-            'acoustic' => 1,
-            'live'     => 1,
-            'demotape' => 1,
-            'demo'     => 1,
-            'remixed'  => 1,
-            'remix'    => 1,
+            'cover'    => -1,
+            'acoustic' => -1,
+            'live'     => -20,
+            'demotape' => -1,
+            'demo'     => -1,
+            'remixed'  => -1,
+            'remix'    => -1,
         ];
 
         if ($this->description->cover) {
