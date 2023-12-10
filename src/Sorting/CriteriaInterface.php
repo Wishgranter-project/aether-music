@@ -2,7 +2,7 @@
 namespace AdinanCenci\AetherMusic\Sorting;
 
 use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Resource\Resource;
 
 interface CriteriaInterface
 {
@@ -23,7 +23,7 @@ interface CriteriaInterface
     /**
      * Compares a resource with a description and returns a score.
      *
-     * @param AdinanCenci\AetherMusic\Source\Resource $forResource
+     * @param AdinanCenci\AetherMusic\Resource\Resource $forResource
      *   The resource being analyzed.
      * @param AdinanCenci\AetherMusic\Description $basedOnDescription
      *   The description used as a base.

@@ -2,13 +2,21 @@
 namespace AdinanCenci\AetherMusic\Sorting;
 
 use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Resource\Resource;
 
 /**
  * Scores on unecessary things that do not make part of the description.
  */
 class LeftOverCriteria extends BaseCriteria implements CriteriaInterface 
 {
+    protected array $indifferent;
+
+    public function __construct(int $weight = 1, array $indifferent = []) 
+    {
+        parent::__construct($weight);
+        $this->indifferent = $indifferent;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -22,7 +30,7 @@ class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
      */
     public function getScore(Resource $forResource, Description $basedOnDescription) : int 
     {
-        $titleMinusDescription = $forResource->title;
+        $titleMinusDescription = strtolower($forResource->title);
 
         if ($basedOnDescription->title) {
             $titleMinusDescription = str_ireplace($basedOnDescription->title, '', $titleMinusDescription);
@@ -38,9 +46,19 @@ class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
 
         $titleMinusDescription = trim($titleMinusDescription);
 
-        $split = preg_split('/[^\w\' ]/', $titleMinusDescription);
-        $split = array_filter($split);
+        $split = preg_split('/[^\w\'\. ]/', $titleMinusDescription);
 
-        return count($split) * -1;
+        $leftOvers = [];
+        foreach ($split as $p) {
+            $leftOvers[] = trim($p);
+        }
+        $leftOvers = array_filter($leftOvers);
+
+        if ($this->indifferent && $leftOvers) {
+            $intersect = array_intersect($this->indifferent, $leftOvers);
+            $leftOvers = array_diff($leftOvers, $intersect);
+        }
+
+        return count($leftOvers) * -1;
     }
 }

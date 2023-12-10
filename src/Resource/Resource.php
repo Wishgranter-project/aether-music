@@ -1,5 +1,5 @@
 <?php
-namespace AdinanCenci\AetherMusic\Source;
+namespace AdinanCenci\AetherMusic\Resource;
 
 class Resource 
 {
@@ -22,11 +22,13 @@ class Resource
 
     /**
      * @var string
+     *   The performing artist, if available.
      */
     protected string $artist = '';
 
     /**
      * @var string
+     *   Those generally have a description, specially YouTube videos.
      */
     protected string $description = '';
 
@@ -137,13 +139,13 @@ class Resource
     public static function createFromArray(array $array) : Resource
     {
         return new self(
-            !empty($array['source']) ? $array['source'] : '',
-            !empty($array['id']) ? $array['id'] : '',
-            !empty($array['title']) ? $array['title'] : '',
-            !empty($array['artist']) ? $array['artist'] : '',
+            !empty($array['source'])      ? $array['source']      : '',
+            !empty($array['id'])          ? $array['id']          : '',
+            !empty($array['title'])       ? $array['title']       : '',
+            !empty($array['artist'])      ? $array['artist']      : '',
             !empty($array['description']) ? $array['description'] : '',
-            !empty($array['thumbnail']) ? $array['thumbnail'] : '',
-            !empty($array['src']) ? $array['src'] : ''
+            !empty($array['thumbnail'])   ? $array['thumbnail']   : '',
+            !empty($array['src'])         ? $array['src']         : ''
         );
     }
 }

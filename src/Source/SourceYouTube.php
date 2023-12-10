@@ -3,6 +3,7 @@ namespace AdinanCenci\AetherMusic\Source;
 
 use AdinanCenci\AetherMusic\Description;
 use AdinanCenci\AetherMusic\Api\ApiYouTube;
+use AdinanCenci\AetherMusic\Resource\Resource;
 
 class SourceYouTube extends SourceAbstract implements SourceInterface
 {

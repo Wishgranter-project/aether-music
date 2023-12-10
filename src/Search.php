@@ -2,7 +2,7 @@
 namespace AdinanCenci\AetherMusic;
 
 use AdinanCenci\AetherMusic\Source\SourceInterface;
-use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Resource\Resource;
 
 use AdinanCenci\AetherMusic\Sorting\LikenessTally;
 use AdinanCenci\AetherMusic\Sorting\CriteriaInterface;
@@ -73,25 +73,40 @@ class Search
     public function addDefaultCriteria() : Search
     {
         $undesirables = [
-            'cover'    => -1,
-            'acoustic' => -1,
-            'live'     => -20,
-            'demotape' => -1,
-            'demo'     => -1,
-            'remixed'  => -1,
-            'remix'    => -1,
+            'cover'      => -1,
+            'acoustic'   => -1,
+            'demotape'   => -1,
+            'demo'       => -1,
+            'remixed'    => -1,
+            'remix'      => -1,
+            'live'       => -20,
+            'tour'       => -20,
+            'full album' => -20,
+            'reaction'   => -20,
         ];
 
         if ($this->description->cover) {
             unset($undesirables['cover']);
         }
 
+        if ($this->description->album && !$this->description->title) {
+            unset($undesirables['full album']);
+        }
+
+        //---
+
+        $indifferent = [
+            'lyrics',
+            'official lyric video',
+            'official music video'
+        ];
+
         $this
         ->addCriteria(new TitleCriteria(10))
         ->addCriteria(new ArtistCriteria(10))
         ->addCriteria(new SoundtrackCriteria(10))
         ->addCriteria(new UndesirablesCriteria(1, $undesirables))
-        ->addCriteria(new LeftoverCriteria(1));
+        ->addCriteria(new LeftoverCriteria(1, $indifferent));
 
         return $this;
     }
@@ -99,7 +114,7 @@ class Search
     /**
      * Search for musics in the provided sources and return Resources to play.
      *
-     * @return AdinanCenci\AetherMusic\Source\Resource[]
+     * @return AdinanCenci\AetherMusic\Resource\Resource[]
      */
     public function find() : array
     {
@@ -160,7 +175,7 @@ class Search
      * @param AdinanCenci\AetherMusic\Source\SourceInterface $source
      *   A source of musics.
      *
-     * @return AdinanCenci\AetherMusic\Source\Resource[]
+     * @return AdinanCenci\AetherMusic\Resource\Resource[]
      */
     protected function searchOnSource(Description $description, SourceInterface $source) : array
     {
@@ -176,7 +191,7 @@ class Search
     /**
      * Generates a likeness tally based on our criteria.
      *
-     * @param AdinanCenci\AetherMusic\Source\Resource $resource
+     * @param AdinanCenci\AetherMusic\Resource\Resource $resource
      *
      * @return AdinanCenci\AetherMusic\Sorting\LikenessTally
      */

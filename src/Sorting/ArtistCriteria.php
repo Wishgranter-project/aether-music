@@ -2,7 +2,7 @@
 namespace AdinanCenci\AetherMusic\Sorting;
 
 use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Resource\Resource;
 use AdinanCenci\AetherMusic\Helper\Text;
 
 /**
@@ -37,11 +37,12 @@ class ArtistCriteria extends BaseCriteria implements CriteriaInterface
             return Text::substrIntersect($forResource->artist, $basedOnDescription->artist)
                 ?  2
                 : -2;
-        } else {
-            // Title will do...
-            return Text::substrIntersect($forResource->title, $basedOnDescription->artist)
-                ?  1
-                : -1;
         }
+
+        // Title or description will do...
+        return Text::substrIntersect($forResource->title, $basedOnDescription->artist) || 
+               Text::substrIntersect($forResource->description, $basedOnDescription->artist)
+            ?  1
+            : -1;
     }
 }

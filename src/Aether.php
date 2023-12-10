@@ -3,7 +3,7 @@ namespace AdinanCenci\AetherMusic;
 
 use AdinanCenci\AetherMusic\Source\SourceInterface;
 use AdinanCenci\AetherMusic\Sorting\Comparer;
-use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Resource\Resource;
 
 class Aether 
 {

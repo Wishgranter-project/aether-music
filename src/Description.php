@@ -1,8 +1,10 @@
 <?php 
 namespace AdinanCenci\AetherMusic;
 
+use AdinanCenci\AetherMusic\Helper\Validation;
+
 /**
- * Describes a piece of music.
+ * Describes a piece of music or album.
  */
 class Description 
 {
@@ -10,27 +12,27 @@ class Description
      * @var string
      *   The title of the music.
      */
-    protected string $title;
+    protected string $title = '';
 
     /**
-     * @var string|string[]
+     * @var string[]
      *   The performing artist.
      */
-    protected array $artist;
+    protected array $artist = [];
 
     /**
      * The name of the album this music can be found in.
      */
-    protected ?string $album;
+    protected string $album = '';
 
     /**
      * @var string
      *   The original artist if the music is being performed by someone else.
      */
-    protected ?string $cover;
+    protected string $cover = '';
 
     /**
-     * @var string|string[]
+     * @var string[]
      *   The name of an intelectual property featuring the music in its
      *   soundtrack, a game, a movie etc.
      */
@@ -38,25 +40,26 @@ class Description
 
     /**
      * @param string $title
-     * @param string|string[]|null $artist
-     * @param string|null $album
-     * @param string|string[]|null $artist
+     * @param string|string[] $artist
+     * @param string $album
+     * @param string $cover
+     * @param string|string[] $soundtrack
      */
-    public function __construct(string $title, $artist = null, ?string $album = null, ?string $cover = null, $soundtrack = null) 
+    public function __construct(string $title, $artist = [], string $album = '', $cover = '', $soundtrack = []) 
     {
+        if (!(empty($artist) || is_string($artist) || Validation::is($artist, 'string[]'))) {
+            throw new \InvalidArgumentException('Artist must be a string or array of strings');
+        }
+
+        if (!(empty($soundtrack) || is_string($soundtrack) || Validation::is($soundtrack, 'string[]'))) {
+            throw new \InvalidArgumentException('Soundtrack must be a string or array of strings');
+        }
+
         $this->title      = $title;
-
-        $this->artist     = !is_null($artist)
-            ? (array) $artist
-            : [];
-
+        $this->artist     = (array) $artist;
         $this->album      = $album;
-
         $this->cover      = $cover;
-
-        $this->soundtrack = !is_null($soundtrack) 
-            ? (array) $soundtrack
-            : [];
+        $this->soundtrack = (array) $soundtrack;
     }
 
     public function __get($var) 
@@ -71,7 +74,7 @@ class Description
         return isset($this->{$var});
     }
 
-    public function __toString() 
+    public function __toString() : string
     {
         $array = [];
 
@@ -80,31 +83,17 @@ class Description
         }
 
         if ($this->artist) {
-            $array['artist'] = count($this->artist) > 1
-                ? implode(', ', $this->artist)
-                : reset($this->artist);
-
             $array['artist'] = $this->cover
-                ? 'cover by ' . $array['artist']
-                : 'by ' . $array['artist'];
+                ? 'cover by ' . $this->cover
+                : implode(', ', $this->artist);
         }
 
         if ($this->album) {
             $array['album'] = $this->album;
         }
 
-        if ($this->cover) {
-            $array['cover'] = $this->artist
-                ? 'from ' . $this->cover
-                : 'by ' . $this->cover;
-        }
-
         if ($this->soundtrack) {
-            $array['soundtrack'] = count($this->soundtrack) > 1
-                ? implode(', ', $this->soundtrack)
-                : reset($this->soundtrack);
-
-            $array['soundtrack'] .= ' soundtrack';
+            $array['soundtrack'] = implode(', ', $this->soundtrack) . ' soundtrack';
         }
 
         return implode(', ', $array);
@@ -149,11 +138,11 @@ class Description
     public static function createFromArray(array $array) : Description
     {
         return new self(
-            !empty($array['title']) ? $array['title'] : '',
-            !empty($array['artist']) ? $array['artist'] : null,
-            !empty($array['album']) ? $array['album'] : null,
-            !empty($array['cover']) ? $array['cover'] : null,
-            !empty($array['soundtrack']) ? $array['soundtrack'] : null
+            !empty($array['title'])      ? $array['title']              : '',
+            !empty($array['artist'])     ? (array) $array['artist']     : [],
+            !empty($array['album'])      ? $array['album']              : '',
+            !empty($array['cover'])      ? $array['cover']              : '',
+            !empty($array['soundtrack']) ? (array) $array['soundtrack'] : []
         );
     }
 }

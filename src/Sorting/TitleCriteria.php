@@ -2,7 +2,7 @@
 namespace AdinanCenci\AetherMusic\Sorting;
 
 use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Source\Resource;
+use AdinanCenci\AetherMusic\Resource\Resource;
 use AdinanCenci\AetherMusic\Helper\Text;
 
 /**

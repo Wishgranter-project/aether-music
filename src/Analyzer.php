@@ -7,7 +7,7 @@ namespace AdinanCenci\AetherMusic;
 class Analyzer 
 {
     /**
-     * @var AdinanCenci\AetherMusic\Source\Resource[]
+     * @var AdinanCenci\AetherMusic\Resource\Resource[]
      */
     protected array $results;
 
@@ -23,7 +23,7 @@ class Analyzer
     protected int $count;
 
     /**
-     * @param AdinanCenci\AetherMusic\Source\Resource[]
+     * @param AdinanCenci\AetherMusic\Resource\Resource[]
      */
     public function __construct(array $results) 
     {
