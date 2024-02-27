@@ -1,9 +1,10 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Sorting;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Resource\Resource;
-use AdinanCenci\AetherMusic\Helper\Text;
+namespace WishgranterProject\AetherMusic\Sorting;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Helper\Text;
 
 /**
  * Scores
@@ -11,12 +12,12 @@ use AdinanCenci\AetherMusic\Helper\Text;
  * +1 if $description's title is in the resource.
  * -1 if it is not.
  */
-class TitleCriteria extends BaseCriteria implements CriteriaInterface 
+class TitleCriteria extends BaseCriteria implements CriteriaInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getId() : string
+    public function getId(): string
     {
         return 'criteria:title';
     }
@@ -24,7 +25,7 @@ class TitleCriteria extends BaseCriteria implements CriteriaInterface
     /**
      * {@inheritdoc}
      */
-    public function getScore(Resource $forResource, Description $basedOnDescription) : int
+    public function getScore(Resource $forResource, Description $basedOnDescription): int
     {
         if (!$basedOnDescription->title) {
             return 0;

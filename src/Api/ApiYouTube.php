@@ -1,11 +1,12 @@
 <?php
-namespace AdinanCenci\AetherMusic\Api;
+
+namespace WishgranterProject\AetherMusic\Api;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Client\ClientInterface;
 
-class ApiYouTube extends ApiBase 
+class ApiYouTube extends ApiBase
 {
     /**
      * @var string
@@ -31,8 +32,7 @@ class ApiYouTube extends ApiBase
         ?CacheInterface $cache = null,
         ?ClientInterface $httpClient = null,
         ?RequestFactoryInterface $requestFactory = null,
-    ) 
-    {
+    ) {
         $this->apiKey = $apiKey;
         parent::__construct($options, $cache, $httpClient, $requestFactory);
     }
@@ -40,7 +40,7 @@ class ApiYouTube extends ApiBase
     /**
      * {@inheritdoc}
      */
-    public function search(string $query) : string
+    public function search(string $query): string
     {
         $uri = 'search?type=video&part=snippet&videoEmbeddable=true&q=' . urlencode($query);
 
@@ -52,7 +52,7 @@ class ApiYouTube extends ApiBase
     /**
      * {@inheritdoc}
      */
-    protected function getFullUrl(string $uri) : string
+    protected function getFullUrl(string $uri): string
     {
         return 'https://youtube.googleapis.com/youtube/v3/' . $uri . '&key=' . $this->apiKey;
     }

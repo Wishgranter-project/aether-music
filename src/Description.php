@@ -1,12 +1,13 @@
-<?php 
-namespace AdinanCenci\AetherMusic;
+<?php
 
-use AdinanCenci\AetherMusic\Helper\Validation;
+namespace WishgranterProject\AetherMusic;
+
+use WishgranterProject\AetherMusic\Helper\Validation;
 
 /**
  * Describes a piece of music or album.
  */
-class Description 
+class Description
 {
     /**
      * @var string
@@ -45,7 +46,7 @@ class Description
      * @param string $cover
      * @param string|string[] $soundtrack
      */
-    public function __construct(string $title, $artist = [], string $album = '', $cover = '', $soundtrack = []) 
+    public function __construct(string $title, $artist = [], string $album = '', $cover = '', $soundtrack = [])
     {
         if (!(empty($artist) || is_string($artist) || Validation::is($artist, 'string[]'))) {
             throw new \InvalidArgumentException('Artist must be a string or array of strings');
@@ -62,19 +63,19 @@ class Description
         $this->soundtrack = (array) $soundtrack;
     }
 
-    public function __get($var) 
+    public function __get($var)
     {
         return isset($this->{$var})
             ? $this->{$var}
             : null;
     }
 
-    public function __isset(string $var) : bool
+    public function __isset(string $var): bool
     {
         return isset($this->{$var});
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         $array = [];
 
@@ -99,7 +100,7 @@ class Description
         return implode(', ', $array);
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         $array = [];
 
@@ -135,7 +136,7 @@ class Description
      *
      * @return Description
      */
-    public static function createFromArray(array $array) : Description
+    public static function createFromArray(array $array): Description
     {
         return new self(
             !empty($array['title'])      ? $array['title']              : '',

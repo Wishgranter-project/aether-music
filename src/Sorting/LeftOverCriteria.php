@@ -1,17 +1,18 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Sorting;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Resource\Resource;
+namespace WishgranterProject\AetherMusic\Sorting;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Resource\Resource;
 
 /**
  * Scores on unecessary things that do not make part of the description.
  */
-class LeftOverCriteria extends BaseCriteria implements CriteriaInterface 
+class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
 {
     protected array $indifferent;
 
-    public function __construct(int $weight = 1, array $indifferent = []) 
+    public function __construct(int $weight = 1, array $indifferent = [])
     {
         parent::__construct($weight);
         $this->indifferent = $indifferent;
@@ -20,7 +21,7 @@ class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
     /**
      * {@inheritdoc}
      */
-    public function getId() : string
+    public function getId(): string
     {
         return 'criteria:leftover';
     }
@@ -28,7 +29,7 @@ class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
     /**
      * {@inheritdoc}
      */
-    public function getScore(Resource $forResource, Description $basedOnDescription) : int 
+    public function getScore(Resource $forResource, Description $basedOnDescription): int
     {
         $titleMinusDescription = strtolower($forResource->title);
 

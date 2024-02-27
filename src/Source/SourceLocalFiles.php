@@ -1,8 +1,9 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Source;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Helper\Text;
+namespace WishgranterProject\AetherMusic\Source;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Helper\Text;
 
 class SourceLocalFiles extends SourceAbstract implements SourceInterface
 {
@@ -13,7 +14,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
     /**
      * @param string $directory
      */
-    public function __construct(string $directory, string $baseHref)  
+    public function __construct(string $directory, string $baseHref)
     {
         $this->directory = $directory;
         $this->baseHref  = $baseHref;
@@ -22,7 +23,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getId() : string 
+    public function getId(): string
     {
         return 'localFiles';
     }
@@ -30,7 +31,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function search(Description $description) : array
+    public function search(Description $description): array
     {
         $resources = [];
 
@@ -52,7 +53,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
         return $resources;
     }
 
-    protected function find(Description $description) : array
+    protected function find(Description $description): array
     {
         $files = [];
 
@@ -73,7 +74,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
         return $files;
     }
 
-    protected function getFiles() : array
+    protected function getFiles(): array
     {
         $files = [];
 
@@ -102,7 +103,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
         return $files;
     }
 
-    public static function getExtension(string $filename) : ?string
+    public static function getExtension(string $filename): ?string
     {
         return preg_match('#(\.\w+)$#', $filename, $matches)
             ? $matches[0]

@@ -1,13 +1,14 @@
-<?php 
-namespace AdinanCenci\AetherMusic;
+<?php
+
+namespace WishgranterProject\AetherMusic;
 
 /**
  * A little helper to get information from search results.
  */
-class Analyzer 
+class Analyzer
 {
     /**
-     * @var AdinanCenci\AetherMusic\Resource\Resource[]
+     * @var WishgranterProject\AetherMusic\Resource\Resource[]
      */
     protected array $results;
 
@@ -23,9 +24,9 @@ class Analyzer
     protected int $count;
 
     /**
-     * @param AdinanCenci\AetherMusic\Resource\Resource[]
+     * @param WishgranterProject\AetherMusic\Resource\Resource[]
      */
-    public function __construct(array $results) 
+    public function __construct(array $results)
     {
         $this->results = $results;
         $this->count = count($results);
@@ -46,7 +47,7 @@ class Analyzer
         $this->averageScore = $total / $this->count;
     }
 
-    public function __get($var) 
+    public function __get($var)
     {
         switch ($var) {
             case 'count':
@@ -67,7 +68,7 @@ class Analyzer
      *
      * @return int
      */
-    public function countResultsScoringAtLeast(int $minScore) : int
+    public function countResultsScoringAtLeast(int $minScore): int
     {
         $count = 0;
 

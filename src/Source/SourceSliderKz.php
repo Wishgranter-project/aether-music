@@ -1,20 +1,21 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Source;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Api\ApiSliderKz;
+namespace WishgranterProject\AetherMusic\Source;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Api\ApiSliderKz;
 
 class SourceSliderKz extends SourceAbstract implements SourceInterface
 {
     /**
-     * @var AdinanCenci\AetherMusic\Api\ApiSliderKz
+     * @var WishgranterProject\AetherMusic\Api\ApiSliderKz
      */
     protected ApiSliderKz $apiSliderKz;
 
     /**
-     * @param AdinanCenci\AetherMusic\Api\ApiSliderKz $apiSliderKz
+     * @param WishgranterProject\AetherMusic\Api\ApiSliderKz $apiSliderKz
      */
-    public function __construct(ApiSliderKz $apiSliderKz)  
+    public function __construct(ApiSliderKz $apiSliderKz)
     {
         $this->apiSliderKz = $apiSliderKz;
     }
@@ -22,7 +23,7 @@ class SourceSliderKz extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getId() : string 
+    public function getId(): string
     {
         return 'sliderkz';
     }
@@ -30,7 +31,7 @@ class SourceSliderKz extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function search(Description $description) : array
+    public function search(Description $description): array
     {
         $resources = [];
 

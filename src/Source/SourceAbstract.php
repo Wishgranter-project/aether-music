@@ -1,11 +1,12 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Source;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
+namespace WishgranterProject\AetherMusic\Source;
 
-abstract class SourceAbstract 
+use WishgranterProject\AetherMusic\Description;
+
+abstract class SourceAbstract
 {
-    public function buildQuery(Description $description) : string
+    public function buildQuery(Description $description): string
     {
         $parts = [];
 
@@ -17,7 +18,7 @@ abstract class SourceAbstract
         // the artist, so we give it precedence.
         if (!empty($description->soundtrack)) {
             $parts[] = $description->soundtrack[0];
-        } else if (!empty($description->artist)) {
+        } elseif (!empty($description->artist)) {
             $parts[] = $description->artist[0];
         }
 

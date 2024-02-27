@@ -1,7 +1,8 @@
 <?php
-namespace AdinanCenci\AetherMusic\Resource;
 
-class Resource 
+namespace WishgranterProject\AetherMusic\Resource;
+
+class Resource
 {
     /**
      * @var string
@@ -61,8 +62,7 @@ class Resource
         ?string $description = '',
         ?string $thumbnail = '',
         ?string $src = ''
-    ) 
-    {
+    ) {
         $this->source      = $source;
         $this->id          = $id;
         $this->title       = $title;
@@ -72,14 +72,14 @@ class Resource
         $this->src         = $src;
     }
 
-    public function __get($var) 
+    public function __get($var)
     {
         return isset($this->{$var})
-            ? $this->{$var} 
+            ? $this->{$var}
             : null;
     }
 
-    public function __isset($var) 
+    public function __isset($var)
     {
         return isset($this->{$var});
     }
@@ -89,7 +89,7 @@ class Resource
      *
      * @return array
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         $array = [];
 
@@ -122,8 +122,7 @@ class Resource
         }
 
         if ($this->likenessTally) {
-            $array['likenessTally'] = array_filter($this->likenessTally->toArray(), function($c) 
-            {
+            $array['likenessTally'] = array_filter($this->likenessTally->toArray(), function ($c) {
                 return isset($c['score']) && $c['score'] != 0 || !is_array($c);
             });
         }
@@ -136,7 +135,7 @@ class Resource
      *
      * @return Resource
      */
-    public static function createFromArray(array $array) : Resource
+    public static function createFromArray(array $array): Resource
     {
         return new self(
             !empty($array['source'])      ? $array['source']      : '',

@@ -1,9 +1,10 @@
 <?php
-namespace AdinanCenci\AetherMusic\Helper;
 
-class Validation 
+namespace WishgranterProject\AetherMusic\Helper;
+
+class Validation
 {
-    public static function is($data, string $expectedType) : bool
+    public static function is($data, string $expectedType): bool
     {
         if ($expectedType == 'string[]') {
             return self::isArrayOf($data, 'is_string');
@@ -33,7 +34,7 @@ class Validation
     }
 
 
-    public static function isArrayOf($data, $function) : bool
+    public static function isArrayOf($data, $function): bool
     {
         if (! is_array($data)) {
             return false;
@@ -49,7 +50,7 @@ class Validation
     }
 
 
-    public static function isAlphanumeric($data) : bool
+    public static function isAlphanumeric($data): bool
     {
         return is_string($data) || is_numeric($data);
     }

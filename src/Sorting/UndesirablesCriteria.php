@@ -1,14 +1,15 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Sorting;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Resource\Resource;
-use AdinanCenci\AetherMusic\Helper\Text;
+namespace WishgranterProject\AetherMusic\Sorting;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Helper\Text;
 
 /**
  * Scores negative points on the presence of specific terms.
  */
-class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface 
+class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
 {
     /**
      * @var int[]
@@ -25,7 +26,7 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
      *   An associative array listing terms we rather not have.
      *   Undesirable term => weight.
      */
-    public function __construct(int $weight = 1, array $terms = []) 
+    public function __construct(int $weight = 1, array $terms = [])
     {
         $this->weight = $weight;
         $this->terms  = $terms;
@@ -34,7 +35,7 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
     /**
      * {@inheritdoc}
      */
-    public function getId() : string
+    public function getId(): string
     {
         return 'criteria:undesirables';
     }
@@ -42,7 +43,7 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
     /**
      * {@inheritdoc}
      */
-    public function getScore(Resource $forResource, Description $basedOnDescription) : int 
+    public function getScore(Resource $forResource, Description $basedOnDescription): int
     {
         $score = 0;
 
@@ -64,13 +65,13 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
      *
      * @param string $term
      *   The undesirable term.
-     * @param AdinanCenci\AetherMusic\Description $description
+     * @param WishgranterProject\AetherMusic\Description $description
      *   The description.
      *
      * @return bool
      *   Wether or not $term is present in $description.
      */
-    protected function isTermInDescription(string $term, Description $description) : bool
+    protected function isTermInDescription(string $term, Description $description): bool
     {
         if ($description->title && Text::substrIntersect($description->title, $term)) {
             return true;

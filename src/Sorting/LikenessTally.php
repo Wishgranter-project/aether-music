@@ -1,7 +1,8 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Sorting;
+<?php
 
-class LikenessTally 
+namespace WishgranterProject\AetherMusic\Sorting;
+
+class LikenessTally
 {
     /**
      * @param array
@@ -9,41 +10,41 @@ class LikenessTally
      */
     protected array $tally = [];
 
-    public function __get(string $var) 
+    public function __get(string $var)
     {
         if ($var == 'total') {
             return $this->getTotal();
         }
     }
 
-    public function setScore(string $criteria, int $score) : LikenessTally
+    public function setScore(string $criteria, int $score): LikenessTally
     {
         $this->tally[$criteria]['score'] = $score;
         return $this;
     }
 
-    public function setWeight(string $criteria, int $weight) : LikenessTally
+    public function setWeight(string $criteria, int $weight): LikenessTally
     {
         $this->tally[$criteria]['weight'] = $weight;
         return $this;
     }
 
-    public function getWeight(string $criteria) : int
+    public function getWeight(string $criteria): int
     {
         return $this->tally[$criteria]['weight'] ?? 0;
     }
 
-    public function getScore(string $criteria) : int
+    public function getScore(string $criteria): int
     {
         return $this->tally[$criteria]['score'] ?? 0;
     }
 
-    public function getPoints(string $criteria) : int
+    public function getPoints(string $criteria): int
     {
         return $this->getScore($criteria) * $this->getWeight($criteria);
     }
 
-    public function getTotal() : int
+    public function getTotal(): int
     {
         $count = 0;
 
@@ -55,7 +56,7 @@ class LikenessTally
         return $count;
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         $array = $this->tally;
         $array['total'] = $this->getTotal();

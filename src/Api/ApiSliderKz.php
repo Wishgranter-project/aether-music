@@ -1,14 +1,15 @@
 <?php
-namespace AdinanCenci\AetherMusic\Api;
+
+namespace WishgranterProject\AetherMusic\Api;
 
 use Psr\Http\Message\RequestInterface;
 
-class ApiSliderKz extends ApiBase 
+class ApiSliderKz extends ApiBase
 {
     /**
      * {@inheritdoc}
      */
-    public function search(string $query) : string
+    public function search(string $query): string
     {
         $uri = 'vk_auth.php?q=' . urlencode($query);
 
@@ -21,7 +22,7 @@ class ApiSliderKz extends ApiBase
     /**
      * {@inheritdoc}
      */
-    protected function getFullUrl(string $uri) : string
+    protected function getFullUrl(string $uri): string
     {
         return 'https://slider.kz/' . $uri;
     }
@@ -29,7 +30,7 @@ class ApiSliderKz extends ApiBase
     /**
      * {@inheritdoc}
      */
-    protected function createRequest(string $url) : RequestInterface
+    protected function createRequest(string $url): RequestInterface
     {
         $request = parent::createRequest($url);
         $lastQuery = $this->getLastQuery();
@@ -60,7 +61,7 @@ class ApiSliderKz extends ApiBase
     /**
      * Returns from the session the last query.
      */
-    protected function getLastQuery() : ?string
+    protected function getLastQuery(): ?string
     {
         if (session_id()) {
             return isset($_SESSION['sliderKzLastQuery'])
@@ -74,7 +75,7 @@ class ApiSliderKz extends ApiBase
     /**
      * Saves the last query in the session.
      */
-    protected function setLastQuery(string $query) 
+    protected function setLastQuery(string $query): void
     {
         if (session_id()) {
             $_SESSION['sliderKzLastQuery'] = $query;

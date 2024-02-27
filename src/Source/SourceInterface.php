@@ -1,24 +1,24 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Source;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
+namespace WishgranterProject\AetherMusic\Source;
 
-use AdinanCenci\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Resource\Resource;
 
-interface SourceInterface 
+interface SourceInterface
 {
     /**
-     * @param AdinanCenci\AetherMusic\Description $description
+     * @param WishgranterProject\AetherMusic\Description $description
      *   A description of a music.
      *
-     * @return AdinanCenci\AetherMusic\Resource\Resource[]
+     * @return WishgranterProject\AetherMusic\Resource\Resource[]
      *   An array of Resource objects matching $description.
      */
-    public function search(Description $description) : array;
+    public function search(Description $description): array;
 
     /**
      * @return string
      *   An unique string to identify this source.
      */
-    public function getId() : string;
+    public function getId(): string;
 }

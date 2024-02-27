@@ -1,9 +1,10 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Sorting;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Resource\Resource;
-use AdinanCenci\AetherMusic\Helper\Text;
+namespace WishgranterProject\AetherMusic\Sorting;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Helper\Text;
 
 /**
  * Scores
@@ -12,12 +13,12 @@ use AdinanCenci\AetherMusic\Helper\Text;
  *    +1 if it can be found in the artist property.
  * -1 if it is not.
  */
-class ArtistCriteria extends BaseCriteria implements CriteriaInterface 
+class ArtistCriteria extends BaseCriteria implements CriteriaInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getId() : string
+    public function getId(): string
     {
         return 'criteria:artist';
     }
@@ -25,7 +26,7 @@ class ArtistCriteria extends BaseCriteria implements CriteriaInterface
     /**
      * {@inheritdoc}
      */
-    public function getScore(Resource $forResource, Description $basedOnDescription) : int
+    public function getScore(Resource $forResource, Description $basedOnDescription): int
     {
         // No artist in the description, skip.
         if (!$basedOnDescription->artist) {
@@ -40,7 +41,7 @@ class ArtistCriteria extends BaseCriteria implements CriteriaInterface
         }
 
         // Title or description will do...
-        return Text::substrIntersect($forResource->title, $basedOnDescription->artist) || 
+        return Text::substrIntersect($forResource->title, $basedOnDescription->artist) ||
                Text::substrIntersect($forResource->description, $basedOnDescription->artist)
             ?  1
             : -1;

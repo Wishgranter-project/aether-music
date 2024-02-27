@@ -1,17 +1,17 @@
 <?php
-namespace AdinanCenci\AetherMusic\Api;
+
+namespace WishgranterProject\AetherMusic\Api;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Client\ClientInterface;
-
 use AdinanCenci\Psr18\Client;
 use AdinanCenci\Psr17\ResponseFactory;
 use AdinanCenci\Psr17\RequestFactory;
 use AdinanCenci\Psr17\StreamFactory;
 
-abstract class ApiBase 
+abstract class ApiBase
 {
     /**
      * @var array
@@ -52,8 +52,7 @@ abstract class ApiBase
         ?CacheInterface $cache = null,
         ?ClientInterface $httpClient = null,
         ?RequestFactoryInterface $requestFactory = null,
-    ) 
-    {
+    ) {
         $this->options        = $options;
         $this->cache          = $cache;
 
@@ -61,7 +60,7 @@ abstract class ApiBase
             ? $httpClient
             : new Client(new ResponseFactory(), new StreamFactory());
 
-        $this->requestFactory = $requestFactory 
+        $this->requestFactory = $requestFactory
             ? $requestFactory
             : new RequestFactory();
     }
@@ -73,7 +72,7 @@ abstract class ApiBase
      * @return string
      *   Json data.
      */
-    public function search(string $query) : string
+    public function search(string $query): string
     {
         $uri = 'search?query=' . urlencode($query);
 
@@ -89,7 +88,7 @@ abstract class ApiBase
      * @return string
      *   Json data.
      */
-    public function apiCall(string $uri) : string
+    public function apiCall(string $uri): string
     {
         $cacheKey = $this->getCacheKey($uri);
 
@@ -114,7 +113,7 @@ abstract class ApiBase
      * @return string
      *   An unique id for the $uri.
      */
-    protected function getCacheKey(string $uri) : string
+    protected function getCacheKey(string $uri): string
     {
         return $cacheKey = md5($uri);
     }
@@ -126,7 +125,7 @@ abstract class ApiBase
      * @return string
      *   An absolute URL.
      */
-    protected function getFullUrl(string $uri) : string
+    protected function getFullUrl(string $uri): string
     {
         return 'https://something.com/' . $uri;
     }
@@ -138,7 +137,7 @@ abstract class ApiBase
      * @param string
      *   The response from the api.
      */
-    protected function apiRequest(string $uri) : string
+    protected function apiRequest(string $uri): string
     {
         $url     = $this->getFullUrl($uri);
         $request = $this->createRequest($url);
@@ -155,7 +154,7 @@ abstract class ApiBase
      *
      * @return Psr\Http\Message\RequestInterface
      */
-    protected function createRequest(string $url) : RequestInterface
+    protected function createRequest(string $url): RequestInterface
     {
         $request = $this->requestFactory->createRequest('GET', $url);
         $request = $request->withHeader('Accept', 'application/json');

@@ -5,7 +5,7 @@ A library to find music in the internet.
 ## 1. Instantiating
 
 ```php
-use AdinanCenci\AetherMusic\Aether;
+use WishgranterProject\AetherMusic\Aether;
 $aether = new Aether();
 ```
 
@@ -14,10 +14,10 @@ $aether = new Aether();
 ## 2. Add Sources
 
 ```php
-use AdinanCenci\AetherMusic\Api\ApiYouTube;
-use AdinanCenci\AetherMusic\Api\ApiSliderKz;
-use AdinanCenci\AetherMusic\Source\SourceYouTube;
-use AdinanCenci\AetherMusic\Source\SourceSliderKz;
+use WishgranterProject\AetherMusic\Api\ApiYouTube;
+use WishgranterProject\AetherMusic\Api\ApiSliderKz;
+use WishgranterProject\AetherMusic\Source\SourceYouTube;
+use WishgranterProject\AetherMusic\Source\SourceSliderKz;
 
 $apiYouTube      = new ApiYouTube('your-youtube-api-key-goes-here');
 $youTube         = new SourceYouTube($apiYouTube);
@@ -36,7 +36,7 @@ $aether->addSource($sliderKz, 10); // Higher priority, will be consulted first.
 Once provided the sources, we can search for musics.
 
 ```php
-use AdinanCenci\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Description;
 
 // Describe what we are searching for,
 // inform the title and artist.
@@ -75,7 +75,7 @@ $resources = $aether
 
 ### 4.5. Custom criteria
 
-However, if you wish to write your own, you may implement the `AdinanCenci\AetherMusic\Sorting\CriteriaInterface`.
+However, if you wish to write your own, you may implement the `WishgranterProject\AetherMusic\Sorting\CriteriaInterface`.
 
 ```php
 $weight = 10;
@@ -99,7 +99,7 @@ $resources = $search->find();
   Currenty only youtube and sliderkz, I plan to add support for soundcloud and other services in the future.
 
 - **Can I write my own sources ?**  
-  Sure, just implement `AdinanCenci\AetherMusic\Source\SourceInterface`.
+  Sure, just implement `WishgranterProject\AetherMusic\Source\SourceInterface`.
 
 <br><br>
 

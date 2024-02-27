@@ -1,7 +1,8 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Sorting;
+<?php
 
-abstract class BaseCriteria 
+namespace WishgranterProject\AetherMusic\Sorting;
+
+abstract class BaseCriteria
 {
     /**
      * @var int
@@ -15,7 +16,7 @@ abstract class BaseCriteria
      *   How much this criteria weights when tallying the resource's likeness
      *   to the description.
      */
-    public function __construct(int $weight = 1) 
+    public function __construct(int $weight = 1)
     {
         $this->weight = $weight;
     }
@@ -25,7 +26,7 @@ abstract class BaseCriteria
      *
      * @return int
      */
-    public function getWeight() : int 
+    public function getWeight(): int
     {
         return $this->weight;
     }

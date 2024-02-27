@@ -1,7 +1,8 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Helper;
+<?php
 
-abstract class Text 
+namespace WishgranterProject\AetherMusic\Helper;
+
+abstract class Text
 {
     /**
      * Basically substr_count but case insensitive.
@@ -14,7 +15,7 @@ abstract class Text
      * @return int
      *   The number of occurences.
      */
-    public static function substrCount(string $haystack, string $needle) : int
+    public static function substrCount(string $haystack, string $needle): int
     {
         return substr_count(strtolower($haystack), strtolower($needle));
     }
@@ -33,7 +34,7 @@ abstract class Text
      * @return int
      *   The number of occurences.
      */
-    public static function substrCountArray(string $haystack, $needles) : int
+    public static function substrCountArray(string $haystack, $needles): int
     {
         $haystack = strtolower($haystack);
         $needles  = (array) $needles;
@@ -59,7 +60,7 @@ abstract class Text
      *
      * @return int
      */
-    public static function substrIntersect($haystack, $needles) : int
+    public static function substrIntersect($haystack, $needles): int
     {
         $haystack  = (array) $haystack;
         $needles   = (array) $needles;

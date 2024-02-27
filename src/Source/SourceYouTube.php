@@ -1,21 +1,22 @@
-<?php 
-namespace AdinanCenci\AetherMusic\Source;
+<?php
 
-use AdinanCenci\AetherMusic\Description;
-use AdinanCenci\AetherMusic\Api\ApiYouTube;
-use AdinanCenci\AetherMusic\Resource\Resource;
+namespace WishgranterProject\AetherMusic\Source;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Api\ApiYouTube;
+use WishgranterProject\AetherMusic\Resource\Resource;
 
 class SourceYouTube extends SourceAbstract implements SourceInterface
 {
     /**
-     * @var AdinanCenci\AetherMusic\Api\ApiYouTube
+     * @var WishgranterProject\AetherMusic\Api\ApiYouTube
      */
     protected ApiYouTube $apiYouTube;
 
     /**
-     * @param AdinanCenci\AetherMusic\Api\ApiYouTube $apiYouTube
+     * @param WishgranterProject\AetherMusic\Api\ApiYouTube $apiYouTube
      */
-    public function __construct(ApiYouTube $apiYouTube)  
+    public function __construct(ApiYouTube $apiYouTube)
     {
         $this->apiYouTube = $apiYouTube;
     }
@@ -23,7 +24,7 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function getId() : string 
+    public function getId(): string
     {
         return 'youtube';
     }
@@ -31,7 +32,7 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function search(Description $description) : array
+    public function search(Description $description): array
     {
         $resources = [];
 
