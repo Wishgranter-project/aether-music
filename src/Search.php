@@ -24,14 +24,14 @@ class Search
      * @var WishgranterProject\AetherMusic\Source\SourceInterface[]
      *   The sources where we may find your music.
      */
-    protected array $onSources;
+    protected array $onSources = [];
 
     /**
      * @var WishgranterProject\AetherMusic\Sorting\CriteriaInterface[]
      *   A list of criteria to judge how closely each resource matches
      *   the description.
      */
-    protected array $criteria;
+    protected array $criteria = [];
 
     /**
      * @param WishgranterProject\AetherMusic\Description $description
