@@ -1,3 +1,5 @@
 cache/
 vendor/
-mp3s/
+
+examples/.youtube-api-key
+examples/cache

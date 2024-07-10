@@ -11,7 +11,11 @@ if (!file_exists('../vendor/autoload.php')) {
 
 require '../vendor/autoload.php';
 
-$apiYouTube = new ApiYouTube('your-youtube-api-key-goes-here');
+$youtubeApiKey = file_exists('./.youtube-api-key')
+    ? file_get_contents('./.youtube-api-key')
+    : 'your-youtube-api-key-goes-here';
+
+$apiYouTube = new ApiYouTube($youtubeApiKey);
 $youTube    = new SourceYouTube($apiYouTube);
 $aether     = new Aether();
 $aether->addSource($youTube, 1);
