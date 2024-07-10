@@ -2,6 +2,7 @@
 
 namespace WishgranterProject\AetherMusic\Api;
 
+use AdinanCenci\GenericRestApi\ApiBase;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Client\ClientInterface;
@@ -38,13 +39,16 @@ class ApiYouTube extends ApiBase
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $query
+     *   A query to make to the api.
+     *
+     * @return \stdClass|null
      */
-    public function search(string $query): string
+    public function search(string $query): ?\stdClass
     {
-        $uri = 'search?type=video&part=snippet&videoEmbeddable=true&q=' . urlencode($query);
+        $endPoint = 'search?type=video&part=snippet&videoEmbeddable=true&q=' . urlencode($query);
 
-        $json = $this->apiCall($uri);
+        $json = $this->getJson($endPoint);
 
         return $json;
     }

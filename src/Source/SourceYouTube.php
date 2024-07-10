@@ -37,8 +37,7 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
         $resources = [];
 
         $query = $this->buildQuery($description);
-        $json  = $this->apiYouTube->search($query);
-        $data  = json_decode($json);
+        $data  = $this->apiYouTube->search($query);
 
         foreach ($data->items as $item) {
             if ($item->id->kind != 'youtube#video') {
