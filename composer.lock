@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "065d22f19d48424270f3f96f3674d37a",
+    "content-hash": "f48406b9e03a852682b83421f6ebd70e",
     "packages": [
         {
             "name": "adinan-cenci/file-cache",
@@ -57,6 +57,48 @@
                 "source": "https://github.com/adinan-cenci/file-cache/tree/v2.0.1"
             },
             "time": "2021-01-12T09:43:41+00:00"
+        },
+        {
+            "name": "adinan-cenci/generic-rest-api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adinan-cenci/generic-rest-api.git",
+                "reference": "8d3fad4dd72346edc0522e1a91d0ea73466ca662"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adinan-cenci/generic-rest-api/zipball/8d3fad4dd72346edc0522e1a91d0ea73466ca662",
+                "reference": "8d3fad4dd72346edc0522e1a91d0ea73466ca662",
+                "shasum": ""
+            },
+            "require": {
+                "adinan-cenci/file-cache": "dev-master",
+                "adinan-cenci/psr-18": "dev-master"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AdinanCenci\\GenericRestApi\\": "src/",
+                    "AdinanCenci\\GenericRestApi\\Exception\\": "src/Exception/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adinan Cenci",
+                    "email": "adinancenci@protonmail.com"
+                }
+            ],
+            "description": "Generic library to build integration with rest APIs",
+            "support": {
+                "source": "https://github.com/adinan-cenci/generic-rest-api/tree/master",
+                "issues": "https://github.com/adinan-cenci/generic-rest-api/issues"
+            },
+            "time": "2024-01-28T17:03:24+00:00"
         },
         {
             "name": "adinan-cenci/psr-17",
@@ -414,7 +456,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "adinan-cenci/psr-18": 20
+        "adinan-cenci/psr-18": 20,
+        "adinan-cenci/file-cache": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
