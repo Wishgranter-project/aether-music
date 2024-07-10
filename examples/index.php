@@ -1,16 +1,19 @@
 <?php
 
-require '../vendor/autoload.php';
-
 use WishgranterProject\AetherMusic\Aether;
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Api\ApiYouTube;
 use WishgranterProject\AetherMusic\Source\SourceYouTube;
 
-$apiYouTube      = new ApiYouTube('your-youtube-api-key-goes-here');
-$youTube         = new SourceYouTube($apiYouTube);
+if (!file_exists('../vendor/autoload.php')) {
+    die('Autoload file not found');
+}
 
-$aether = new Aether();
+require '../vendor/autoload.php';
+
+$apiYouTube = new ApiYouTube('your-youtube-api-key-goes-here');
+$youTube    = new SourceYouTube($apiYouTube);
+$aether     = new Aether();
 $aether->addSource($youTube, 1);
 
 // Describe what we are searching for,
@@ -25,4 +28,6 @@ $resources = $aether
   ->addDefaultCriteria()
   ->find();
 
+echo '<pre>';
 var_dump($resources);
+echo '</pre>';
