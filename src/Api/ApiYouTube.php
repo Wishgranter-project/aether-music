@@ -46,7 +46,19 @@ class ApiYouTube extends ApiBase
      */
     public function search(string $query): ?\stdClass
     {
-        $endPoint = 'search?type=video&part=snippet&videoEmbeddable=true&q=' . urlencode($query);
+        // maxResults ( itens per page ).
+        // pageToken ( page )
+
+        $parameters = [
+            'type'            => 'video',
+            'part'            => 'snippet',
+            'videoEmbeddable' => 'true',
+            'videoSyndicated' => 'true',
+            'q'               => $query
+        ];
+
+        $query = http_build_query($parameters);
+        $endPoint = 'search?' . $query;
 
         $json = $this->getJson($endPoint);
 

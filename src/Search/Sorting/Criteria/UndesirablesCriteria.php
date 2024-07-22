@@ -1,6 +1,6 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Sorting;
+namespace WishgranterProject\AetherMusic\Search\Sorting\Criteria;
 
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Resource\Resource;
@@ -40,15 +40,12 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:undesirables';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getScore(Resource $forResource, Description $basedOnDescription): int
+    protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         $score = 0;
 
         foreach ($this->terms as $term => $weight) {
-            // If the terms actually makes part of of the description, counting it is contraproductive.
+            // If the terms actually makes part of of the description, counting it would be contraproductive.
             if ($this->isTermInDescription($term, $basedOnDescription)) {
                 continue;
             }
@@ -61,7 +58,7 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
     }
 
     /**
-     * Will check the presence of $term in $description.
+     * Checks the presence of $term in $description.
      *
      * @param string $term
      *   The undesirable term.

@@ -1,16 +1,16 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Sorting;
+namespace WishgranterProject\AetherMusic\Search\Sorting\Criteria;
 
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Resource\Resource;
 use WishgranterProject\AetherMusic\Helper\Text;
 
 /**
- * Scores
- *  0 if $description has no title.
- * +1 if $description's title is in the resource.
- * -1 if it is not.
+ * The resource scores:
+ *  0 if the description specifies no title to begin with.
+ * +1 if the title can be found in the resource's title.
+ * -1 if it cannot.
  */
 class TitleCriteria extends BaseCriteria implements CriteriaInterface
 {
@@ -22,10 +22,7 @@ class TitleCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:title';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getScore(Resource $forResource, Description $basedOnDescription): int
+    protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         if (!$basedOnDescription->title) {
             return 0;

@@ -2,22 +2,27 @@
 
 namespace WishgranterProject\AetherMusic\Resource;
 
+/**
+ * Describes a musical resource that can be played.
+ */
 class Resource
 {
     /**
      * @var string
-     *   The id of the source object that instantiated this resource.
+     *   The id of the source that instantiated this object.
+     *   See WishgranterProject\AetherMusic\SourceInterface::getId()
      */
     protected string $source = '';
 
     /**
      * @var string
-     *  Unique identifier withing the vendor.
+     *   ID withing the source.
      */
     protected string $id = '';
 
     /**
      * @var string
+     *   Human readable string describing the resource.
      */
     protected string $title = '';
 
@@ -29,19 +34,20 @@ class Resource
 
     /**
      * @var string
-     *   Those generally have a description, specially YouTube videos.
+     *   Human readable string describing the resource.
      */
     protected string $description = '';
 
     /**
      * @var string
-     *   An URL to a thumbnail picture.
+     *   An URI to a thumbnail picture.
      */
     protected string $thumbnail = '';
 
     /**
      * @var string
-     *   An url to a playable multimedia, like a mp4 file for example.
+     *   An URI to a playable multimedia.
+     *   Like a mp4 file for example.
      */
     protected string $src = '';
 
@@ -85,7 +91,7 @@ class Resource
     }
 
     /**
-     * Casts down the object into an array.
+     * Creates a representation of the object as an associative array.
      *
      * @return array
      */
@@ -121,17 +127,13 @@ class Resource
             $array['src'] = $this->src;
         }
 
-        if ($this->likenessTally) {
-            $array['likenessTally'] = array_filter($this->likenessTally->toArray(), function ($c) {
-                return isset($c['score']) && $c['score'] != 0 || !is_array($c);
-            });
-        }
-
         return $array;
     }
 
     /**
-     * @param string[] $array
+     * Instantiate an object from an associative array.
+     *
+     * @param array $array
      *
      * @return Resource
      */

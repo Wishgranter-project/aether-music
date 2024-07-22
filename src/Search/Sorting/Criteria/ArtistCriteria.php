@@ -1,17 +1,17 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Sorting;
+namespace WishgranterProject\AetherMusic\Search\Sorting\Criteria;
 
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Resource\Resource;
 use WishgranterProject\AetherMusic\Helper\Text;
 
 /**
- * Scores
- * 0 if $description has no artist.
- * +1 if $description's artist is in the resource.
- *    +1 if it can be found in the artist property.
- * -1 if it is not.
+ * The resource scores:
+ *  0 if the description specifies no artist to begin with.
+ * +2 if the artist can be found in the resource's artist description.
+ * +1 if the artist can be found in the resource's other properties.
+ * -1 if the artist cannot be found.
  */
 class ArtistCriteria extends BaseCriteria implements CriteriaInterface
 {
@@ -23,10 +23,7 @@ class ArtistCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:artist';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getScore(Resource $forResource, Description $basedOnDescription): int
+    protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         // No artist in the description, skip.
         if (!$basedOnDescription->artist) {

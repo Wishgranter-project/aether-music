@@ -457,7 +457,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "adinan-cenci/psr-18": 20,
-        "adinan-cenci/file-cache": 20
+        "adinan-cenci/file-cache": 20,
+        "adinan-cenci/generic-rest-api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

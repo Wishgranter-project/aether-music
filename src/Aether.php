@@ -2,6 +2,7 @@
 
 namespace WishgranterProject\AetherMusic;
 
+use WishgranterProject\AetherMusic\Search\Search;
 use WishgranterProject\AetherMusic\Source\SourceInterface;
 use WishgranterProject\AetherMusic\Sorting\Comparer;
 use WishgranterProject\AetherMusic\Resource\Resource;
@@ -34,12 +35,12 @@ class Aether
     }
 
     /**
-     * Search for musics in the provided sources and return Resources to play.
+     * Instantiate a Search object.
      *
      * @param WishgranterProject\AetherMusic\Description $description
      *   A description of the music.
      *
-     * @return WishgranterProject\AetherMusic\Source\Search
+     * @return WishgranterProject\AetherMusic\Search\Search
      */
     public function search(Description $description): Search
     {

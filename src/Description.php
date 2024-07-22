@@ -35,9 +35,15 @@ class Description
     /**
      * @var string[]
      *   The name of an intelectual property featuring the music in its
-     *   soundtrack, a game, a movie etc.
+     *   soundtrack like a video-game, a movie etc.
      */
     protected array $soundtrack;
+
+    /**
+     * @var string[]
+     *   The musical genre the music belongs to.
+     */
+    protected array $genre;
 
     /**
      * @param string $title
@@ -45,8 +51,9 @@ class Description
      * @param string $album
      * @param string $cover
      * @param string|string[] $soundtrack
+     * @param string|string[] $genre
      */
-    public function __construct(string $title, $artist = [], string $album = '', $cover = '', $soundtrack = [])
+    public function __construct(string $title, $artist = [], string $album = '', $cover = '', $soundtrack = [], $genre = [])
     {
         if (!(empty($artist) || is_string($artist) || Validation::is($artist, 'string[]'))) {
             throw new \InvalidArgumentException('Artist must be a string or array of strings');
@@ -56,11 +63,16 @@ class Description
             throw new \InvalidArgumentException('Soundtrack must be a string or array of strings');
         }
 
+        if (!(empty($genre) || is_string($genre) || Validation::is($genre, 'string[]'))) {
+            throw new \InvalidArgumentException('Genre must be a string or array of strings');
+        }
+
         $this->title      = $title;
         $this->artist     = (array) $artist;
         $this->album      = $album;
         $this->cover      = $cover;
         $this->soundtrack = (array) $soundtrack;
+        $this->genre      = (array) $genre;
     }
 
     public function __get($var)
@@ -75,6 +87,11 @@ class Description
         return isset($this->{$var});
     }
 
+    /**
+     * Returns the description as a human readable string.
+     *
+     * @return string
+     */
     public function __toString(): string
     {
         $array = [];
@@ -100,6 +117,11 @@ class Description
         return implode(', ', $array);
     }
 
+    /**
+     * Creates a representation of the object as an associative array.
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         $array = [];
@@ -128,11 +150,19 @@ class Description
                 : reset($this->soundtrack);
         }
 
+        if ($this->soundtrack) {
+            $array['genre'] = count($this->genre) > 1
+                ? '(' . $this->genre . ')'
+                : '(' . reset($this->genre) . ')';
+        }
+
         return $array;
     }
 
     /**
-     * @param string[] $array
+     * Instantiate an object from an associative array.
+     *
+     * @param array $array
      *
      * @return Description
      */
@@ -143,7 +173,8 @@ class Description
             !empty($array['artist'])     ? (array) $array['artist']     : [],
             !empty($array['album'])      ? $array['album']              : '',
             !empty($array['cover'])      ? $array['cover']              : '',
-            !empty($array['soundtrack']) ? (array) $array['soundtrack'] : []
+            !empty($array['soundtrack']) ? (array) $array['soundtrack'] : [],
+            !empty($array['genre'])      ? (array) $array['genre']      : []
         );
     }
 }

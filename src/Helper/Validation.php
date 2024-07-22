@@ -2,45 +2,68 @@
 
 namespace WishgranterProject\AetherMusic\Helper;
 
-class Validation
+/**
+ * Collection of methods to help with validation.
+ */
+abstract class Validation
 {
-    public static function is($data, string $expectedType): bool
+    /**
+     * Checks if a value is of the expected type.
+     *
+     * It can also check an entire array.
+     *
+     * @param mixed $value
+     *   The value to be checked.
+     * @param string $ofTheExpectedType
+     *   The type of data $value is supposed to be.
+     * @return bool
+     */
+    public static function is($value, string $ofTheExpectedType): bool
     {
-        if ($expectedType == 'string[]') {
-            return self::isArrayOf($data, 'is_string');
+        if ($ofTheExpectedType == 'string[]') {
+            return self::isArrayOf($value, 'is_string');
         }
 
-        if ($expectedType == 'int[]') {
-            return self::isArrayOf($data, 'is_int');
+        if ($ofTheExpectedType == 'int[]') {
+            return self::isArrayOf($value, 'is_int');
         }
 
-        if ($expectedType == 'numeric[]') {
-            return self::isArrayOf($data, 'is_numeric');
+        if ($ofTheExpectedType == 'numeric[]') {
+            return self::isArrayOf($value, 'is_numeric');
         }
 
-        if ($expectedType == 'alphanumeric') {
-            return self::isAlphanumeric($data);
+        if ($ofTheExpectedType == 'alphanumeric') {
+            return self::isAlphanumeric($value);
         }
 
-        if ($expectedType == 'alphanumeric[]') {
-            return self::isArrayOf($data, [get_called_class(), 'isAlphanumeric']);
+        if ($ofTheExpectedType == 'alphanumeric[]') {
+            return self::isArrayOf($value, [get_called_class(), 'isAlphanumeric']);
         }
 
-        if ($expectedType == 'null') {
-            return is_null($data);
+        if ($ofTheExpectedType == 'null') {
+            return is_null($value);
         }
 
-        return gettype($data) == $expectedType;
+        return gettype($value) == $ofTheExpectedType;
     }
 
-
-    public static function isArrayOf($data, $function): bool
+    /**
+     * Checks if all the elements of an array conform with specified type
+     * validation.
+     *
+     * @param mixed $array
+     *   The array which's value to check.
+     * @param string $function
+     *   The function to be used on the $array's elements.
+     * @return bool
+     */
+    public static function isArrayOf($array, $function): bool
     {
-        if (! is_array($data)) {
+        if (! is_array($array)) {
             return false;
         }
 
-        foreach ($data as $v) {
+        foreach ($array as $v) {
             if (! call_user_func($function, $v)) {
                 return false;
             }
@@ -49,9 +72,15 @@ class Validation
         return true;
     }
 
-
-    public static function isAlphanumeric($data): bool
+    /**
+     * Checks if a value is either a string or numeric.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public static function isAlphanumeric($value): bool
     {
-        return is_string($data) || is_numeric($data);
+        return is_string($value) || is_numeric($value);
     }
 }

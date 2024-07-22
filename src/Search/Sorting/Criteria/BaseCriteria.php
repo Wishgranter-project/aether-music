@@ -1,6 +1,10 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Sorting;
+namespace WishgranterProject\AetherMusic\Search\Sorting\Criteria;
+
+use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Search\Sorting\Score;
 
 abstract class BaseCriteria
 {
@@ -29,5 +33,14 @@ abstract class BaseCriteria
     public function getWeight(): int
     {
         return $this->weight;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getScore(Resource $forResource, Description $basedOnDescription): Score
+    {
+        $points = $this->getPoints($forResource, $basedOnDescription);
+        return new Score($this, $points, $this->weight);
     }
 }

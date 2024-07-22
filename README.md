@@ -15,18 +15,12 @@ $aether = new Aether();
 
 ```php
 use WishgranterProject\AetherMusic\Api\ApiYouTube;
-use WishgranterProject\AetherMusic\Api\ApiSliderKz;
 use WishgranterProject\AetherMusic\Source\SourceYouTube;
-use WishgranterProject\AetherMusic\Source\SourceSliderKz;
 
-$apiYouTube      = new ApiYouTube('your-youtube-api-key-goes-here');
-$youTube         = new SourceYouTube($apiYouTube);
-
-$apiSliderKz     = new ApiSliderKz();
-$sliderKz        = new SourceSliderKz($apiSliderKz);
+$apiYouTube = new ApiYouTube('your-youtube-api-key-goes-here');
+$youTube    = new SourceYouTube($apiYouTube);
 
 $aether->addSource($youTube, 1);
-$aether->addSource($sliderKz, 10); // Higher priority, will be consulted first.
 ```
 
 <br><br>
@@ -64,7 +58,7 @@ That's the basics, but the sources are fickle, depending on how unpopular our mu
 
 To solve this issue the search functionality sports a sorting algorithm to place resources that better fit the description, higher in the results.
 
-The `::addDefaultCriteria()` method sets up a built-in pre set of criteria and I find it really good at sorting results.
+The `::addDefaultCriteria()` method sets up a built-in pre set of criteria and I find really good at sorting results.
 
 ```php
 $resources = $aether
@@ -75,7 +69,7 @@ $resources = $aether
 
 ### 4.5. Custom criteria
 
-However, if you wish to write your own, you may implement the `WishgranterProject\AetherMusic\Sorting\CriteriaInterface`.
+However, if you wish to write your own, you may implement the `WishgranterProject\AetherMusic\Search\Sorting\Criteria\CriteriaInterface`.
 
 ```php
 $weight = 10;
@@ -96,7 +90,7 @@ $resources = $search->find();
 ## Notes
 
 - **How many sources does it supports ?**  
-  Currenty only youtube and sliderkz, I plan to add support for soundcloud and other services in the future.
+  Currenty only youtube, I plan to add support for soundcloud and other services in the future.
 
 - **Can I write my own sources ?**  
   Sure, just implement `WishgranterProject\AetherMusic\Source\SourceInterface`.

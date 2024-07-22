@@ -11,6 +11,8 @@ if (!file_exists('../vendor/autoload.php')) {
 
 require '../vendor/autoload.php';
 
+require 'head.html';
+
 $youtubeApiKey = file_exists('./.youtube-api-key')
     ? file_get_contents('./.youtube-api-key')
     : 'your-youtube-api-key-goes-here';

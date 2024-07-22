@@ -1,10 +1,15 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Sorting;
+namespace WishgranterProject\AetherMusic\Search\Sorting\Criteria;
 
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Search\Sorting\Score;
 
+/**
+ * We will be using different criteria to determine how close a resource
+ * matches our description.
+ */
 interface CriteriaInterface
 {
     /**
@@ -25,12 +30,12 @@ interface CriteriaInterface
      * Compares a resource with a description and returns a score.
      *
      * @param WishgranterProject\AetherMusic\Resource\Resource $forResource
-     *   The resource being analyzed.
+     *   The resource being scrutinized.
      * @param WishgranterProject\AetherMusic\Description $basedOnDescription
      *   The description used as a base.
      *
-     * @return int
-     *   The score, implementation specific.
+     * @return WishgranterProject\AetherMusic\Search\Sorting\Score
+     *   A score object.
      */
-    public function getScore(Resource $forResource, Description $basedOnDescription): int;
+    public function getScore(Resource $forResource, Description $basedOnDescription): Score;
 }

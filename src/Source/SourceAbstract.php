@@ -6,6 +6,13 @@ use WishgranterProject\AetherMusic\Description;
 
 abstract class SourceAbstract
 {
+    /**
+     * Builds a query out of a description.
+     *
+     * @param WishgranterProject\AetherMusic\Description $description
+     *
+     * @return string
+     */
     public function buildQuery(Description $description): string
     {
         $parts = [];
@@ -20,6 +27,10 @@ abstract class SourceAbstract
             $parts[] = $description->soundtrack[0];
         } elseif (!empty($description->artist)) {
             $parts[] = $description->artist[0];
+        }
+
+        if ($description->genre) {
+            $parts[] = $description->genre[0];
         }
 
         $query = implode(' ', $parts);
