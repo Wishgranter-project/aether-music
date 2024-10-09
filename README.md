@@ -83,8 +83,6 @@ $search->addCriteria($criteria);
 $resources = $search->find();
 ```
 
-**Note**: While you may set multiple criteria to a search object, you may not set multiple instances of the same criteria.
-
 <br><br>
 
 ## Notes
