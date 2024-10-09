@@ -162,8 +162,8 @@ class Search
 
             $finds->tallyResults($this->criteria, $this->description);
 
-            // 2 results scoring the avarege is good enough, let's stop here.
-            if ($finds->countResultsScoringAtLeast($this->averaging) >= 2) {
+            // 1 result scoring the avarege is good enough, let's stop here.
+            if ($finds->countResultsScoringAtLeast($this->averaging) >= 1) {
                 break;
             }
 
