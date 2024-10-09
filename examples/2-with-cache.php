@@ -5,6 +5,7 @@ use WishgranterProject\AetherMusic\Aether;
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Api\ApiYouTube;
 use WishgranterProject\AetherMusic\Source\SourceYouTube;
+use WishgranterProject\AetherMusic\Source\SourceLaxYouTube;
 
 if (!file_exists('../vendor/autoload.php')) {
     die('Autoload file not found');
@@ -23,8 +24,10 @@ if (!file_exists('./cache')) {
 $cache      = new Cache('./cache');
 $apiYouTube = new ApiYouTube($youtubeApiKey, [], $cache);
 $youTube    = new SourceYouTube($apiYouTube);
+$laxYouTube = new SourceLaxYouTube($apiYouTube);
 $aether     = new Aether();
-$aether->addSource($youTube, 1);
+$aether->addSource($youTube, 2);
+$aether->addSource($laxYouTube, 1);
 
 
 
