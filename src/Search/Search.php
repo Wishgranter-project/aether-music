@@ -11,7 +11,7 @@ use WishgranterProject\AetherMusic\Search\Sorting\Criteria\CriteriaInterface;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\TitleCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\SoundtrackCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\ArtistCriteria;
-use WishgranterProject\AetherMusic\Search\Sorting\Criteria\UndesirablesCriteria;
+use WishgranterProject\AetherMusic\Search\Sorting\Criteria\UndesirableCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\LeftOverCriteria;
 
 class Search
@@ -95,6 +95,7 @@ class Search
             'tour'       => -20,
             'full album' => -20,
             'reaction'   => -20,
+            'karaoke'    => -20,
         ];
 
         if ($this->description->cover) {
@@ -117,8 +118,11 @@ class Search
             ->addCriteria(new TitleCriteria(10))
             ->addCriteria(new ArtistCriteria(10))
             ->addCriteria(new SoundtrackCriteria(10))
-            ->addCriteria(new UndesirablesCriteria(1, $undesirables))
             ->addCriteria(new LeftoverCriteria(1, $indifferent));
+
+        foreach ($undesirables as $term => $weight) {
+            $this->addCriteria(new UndesirableCriteria($weight, $term));
+        }
 
         return $this;
     }
@@ -157,8 +161,8 @@ class Search
 
             $finds->tallyResults($this->criteria, $this->description);
 
-            // Good enough, let's stop here.
-            if ($finds->countResultsScoringAtLeast($this->averaging) >= 1) {
+            // 2 results scoring the avarege is good enough, let's stop here.
+            if ($finds->countResultsScoringAtLeast($this->averaging) >= 2) {
                 break;
             }
 

@@ -9,27 +9,25 @@ use WishgranterProject\AetherMusic\Helper\Text;
 /**
  * Scores negative points on the presence of specific terms.
  */
-class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
+class UndesirableCriteria extends BaseCriteria implements CriteriaInterface
 {
     /**
-     * @var int[]
-     *   An associative array listing terms we rather not have.
-     *   Undesirable term => weight.
+     * @var string
+     *   A term we rather not have in our search results.
      */
-    protected array $terms;
+    protected string $term;
 
     /**
      * @param int $weight
      *   How much this criteria weights when tallying the resource's likeness
      *   to the description.
-     * @param int[] $terms
-     *   An associative array listing terms we rather not have.
-     *   Undesirable term => weight.
+     * @param string $term
+     *   A term we rather not have in our search results.
      */
-    public function __construct(int $weight = 1, array $terms = [])
+    public function __construct(int $weight = 1, string $term = '')
     {
         $this->weight = $weight;
-        $this->terms  = $terms;
+        $this->term   = $term;
     }
 
     /**
@@ -37,22 +35,19 @@ class UndesirablesCriteria extends BaseCriteria implements CriteriaInterface
      */
     public function getId(): string
     {
-        return 'criteria:undesirables';
+        return 'criteria:undesirable:' . $this->term;
     }
 
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         $score = 0;
 
-        foreach ($this->terms as $term => $weight) {
-            // If the terms actually makes part of of the description, counting it would be contraproductive.
-            if ($this->isTermInDescription($term, $basedOnDescription)) {
-                continue;
-            }
-
-            $intersectCount = Text::substrIntersect($forResource->title, $term);
-            $score += $intersectCount * $weight;
+        // If the term actually makes part of of the description, counting it would be contraproductive.
+        if ($this->isTermInDescription($this->term, $basedOnDescription)) {
+            return 0;
         }
+
+        $score = Text::substrIntersect($forResource->title, $this->term);
 
         return $score;
     }
