@@ -104,27 +104,6 @@ class SearchResults implements \Iterator // ArrayAccess
     }
 
     /**
-     * Generates a likeness tally based on our criteria.
-     *
-     * @param WishgranterProject\AetherMusic\Resource\Resource $onResource
-     * @param WishgranterProject\AetherMusic\Search\Sorting\CriteriaInterface[] $accordingToCriteria
-     * @param WishgranterProject\AetherMusic\Description $andDescription
-     *
-     * @return WishgranterProject\AetherMusic\Search\Sorting\LikenessTally
-     */
-    protected function generateLikenessTally(Resource $onResource, $accordingToCriteria, $andDescription): LikenessTally
-    {
-        $tally = new LikenessTally();
-
-        foreach ($accordingToCriteria as $criteria) {
-            $score = $criteria->getScore($onResource, $andDescription);
-            $tally->addScore($score);
-        }
-
-        return $tally;
-    }
-
-    /**
      * Returns the number of results that scored $minScore or more.
      *
      * @param int $minScore
@@ -147,6 +126,48 @@ class SearchResults implements \Iterator // ArrayAccess
     public function count(): int
     {
         return count($this->results);
+    }
+
+    /**
+     * Remove duplicated results.
+     *
+     * Call it before ::sortResults()
+     */
+    public function unique()
+    {
+        $uniqueArray = [];
+
+        foreach ($this->results as $item) {
+            $key = $item->resource->vendor . ':' . $item->resource->id;
+            if (isset($uniqueArray[$key])) {
+                continue;
+            }
+
+            $uniqueArray[$key] = $item;
+        }
+
+        $this->results = array_values($uniqueArray);
+    }
+
+    /**
+     * Generates a likeness tally based on our criteria.
+     *
+     * @param WishgranterProject\AetherMusic\Resource\Resource $onResource
+     * @param WishgranterProject\AetherMusic\Search\Sorting\CriteriaInterface[] $accordingToCriteria
+     * @param WishgranterProject\AetherMusic\Description $andDescription
+     *
+     * @return WishgranterProject\AetherMusic\Search\Sorting\LikenessTally
+     */
+    protected function generateLikenessTally(Resource $onResource, $accordingToCriteria, $andDescription): LikenessTally
+    {
+        $tally = new LikenessTally();
+
+        foreach ($accordingToCriteria as $criteria) {
+            $score = $criteria->getScore($onResource, $andDescription);
+            $tally->addScore($score);
+        }
+
+        return $tally;
     }
 
     /**

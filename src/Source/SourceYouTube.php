@@ -32,6 +32,14 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
     /**
      * {@inheritdoc}
      */
+    public function getVendor(): string
+    {
+        return 'youtube';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function search(Description $description): array
     {
         $resources = [];
@@ -46,6 +54,7 @@ class SourceYouTube extends SourceAbstract implements SourceInterface
 
             $resources[] = new Resource(
                 $this->getId(),
+                $this->getVendor(),
                 $item->id->videoId,
                 htmlspecialchars_decode($item->snippet->title),
                 '',

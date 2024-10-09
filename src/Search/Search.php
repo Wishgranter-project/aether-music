@@ -153,6 +153,7 @@ class Search
         foreach ($this->onSources as $source) {
             $results = $this->searchOn($source[0]);
             $finds->merge($results);
+            $finds->unique();
 
             // No results, next source...
             if ($finds->count == 0) {

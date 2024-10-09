@@ -16,6 +16,13 @@ class Resource
 
     /**
      * @var string
+     *   The vendor of the source that instantiated this object.
+     *   See WishgranterProject\AetherMusic\SourceInterface::getVendor()
+     */
+    protected string $vendor = '';
+
+    /**
+     * @var string
      *   ID withing the source.
      */
     protected string $id = '';
@@ -53,6 +60,7 @@ class Resource
 
     /**
      * @param string $source
+     * @param string $vendor
      * @param string $id
      * @param string|null $title
      * @param string|null $artist
@@ -62,6 +70,7 @@ class Resource
      */
     public function __construct(
         string $source,
+        string $vendor,
         string $id,
         ?string $title,
         ?string $artist,
@@ -70,6 +79,7 @@ class Resource
         ?string $src = ''
     ) {
         $this->source      = $source;
+        $this->vendor      = $vendor;
         $this->id          = $id;
         $this->title       = $title;
         $this->artist      = $artist;
@@ -101,6 +111,10 @@ class Resource
 
         if (!empty($this->source)) {
             $array['source'] = $this->source;
+        }
+
+        if (!empty($this->vendor)) {
+            $array['vendor'] = $this->vendor;
         }
 
         if (!empty($this->id)) {
@@ -141,6 +155,7 @@ class Resource
     {
         return new self(
             !empty($array['source'])      ? $array['source']      : '',
+            !empty($array['vendor'])      ? $array['vendor']      : '',
             !empty($array['id'])          ? $array['id']          : '',
             !empty($array['title'])       ? $array['title']       : '',
             !empty($array['artist'])      ? $array['artist']      : '',

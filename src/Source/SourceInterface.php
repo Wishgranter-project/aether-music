@@ -14,6 +14,12 @@ interface SourceInterface
     public function getId(): string;
 
     /**
+     * @return string
+     *   The vendor for the source.
+     */
+    public function getVendor(): string;
+
+    /**
      * @param WishgranterProject\AetherMusic\Description $description
      *   A description of a music.
      *
