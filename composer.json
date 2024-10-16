@@ -29,5 +29,13 @@
         "adinan-cenci/psr-18": "dev-master",
         "adinan-cenci/file-cache": "dev-master",
         "adinan-cenci/generic-rest-api": "dev-master"
+    },
+    "require-dev": {
+        "php-http/psr7-integration-tests": "1.x-dev"
+    },
+    "scripts": {
+        "unit-tests": [
+            "./vendor/bin/phpunit tests"
+        ]
     }
 }
