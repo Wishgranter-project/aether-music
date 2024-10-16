@@ -1,27 +1,24 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Source;
+namespace WishgranterProject\AetherMusic\YouTube\Source;
 
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Api\ApiYouTube;
 use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Source\SourceInterface;
 
-class SourceLaxYouTube extends SourceYouTube implements SourceInterface
+class SourceYouTubeLax extends SourceYouTube implements SourceInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getId(): string
     {
-        return 'laxYoutube';
+        return 'youtubeLax';
     }
 
     /**
-     * Builds a query out of a description.
-     *
-     * @param WishgranterProject\AetherMusic\Description $description
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function buildQuery(Description $description): string
     {

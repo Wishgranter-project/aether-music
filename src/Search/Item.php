@@ -48,6 +48,14 @@ class Item
         return $this->resource->{$var};
     }
 
+    public function toArray()
+    {
+        return [
+            'resource' => $this->resource->toArray(),
+            'likenessTally' => $this->likenessTally->toArray(),
+        ];
+    }
+
     /**
      * Set the likeness tally.
      *

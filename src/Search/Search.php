@@ -85,13 +85,13 @@ class Search
     public function addDefaultCriteria(): Search
     {
         $undesirables = [
-            'cover'      => -1,
+            'cover'      => -1, // Rather not...
             'acoustic'   => -1,
             'demotape'   => -1,
             'demo'       => -1,
             'remixed'    => -1,
             'remix'      => -1,
-            'live'       => -20,
+            'live'       => -20, // FUCK NO!!!
             'tour'       => -20,
             'full album' => -20,
             'reaction'   => -20,

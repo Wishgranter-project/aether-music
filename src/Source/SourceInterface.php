@@ -8,16 +8,18 @@ use WishgranterProject\AetherMusic\Resource\Resource;
 interface SourceInterface
 {
     /**
+     * Returns this source's unique identifier.
+     *
      * @return string
-     *   The id for this source.
      */
     public function getId(): string;
 
     /**
+     * Returns the name of the service that provides the media.
+     *
      * @return string
-     *   The vendor for the source.
      */
-    public function getVendor(): string;
+    public function getProvider(): string;
 
     /**
      * @param WishgranterProject\AetherMusic\Description $description

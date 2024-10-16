@@ -8,7 +8,7 @@ use WishgranterProject\AetherMusic\Resource\Resource;
 /**
  * Scores negatively on unecessary things that do not make part of the description.
  * Substrings inside parenthesis, commas and other fluff.
- * The more there are, the lesser is the score.
+ * The more there are, the worse is the score.
  */
 class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
 {

@@ -42,6 +42,21 @@ class SearchResults implements \Iterator // ArrayAccess
         return null;
     }
 
+    public function toArray()
+    {
+        $array = [
+            'total' => $this->getTotal(),
+            'average' => $this->getAverage(),
+            'results' => []
+        ];
+
+        foreach ($this as $r) {
+            $array['results'][] = $r->toArray();
+        }
+
+        return $array;
+    }
+
     public function merge($results)
     {
         if ($results instanceof SearchResults) {

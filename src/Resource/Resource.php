@@ -3,9 +3,9 @@
 namespace WishgranterProject\AetherMusic\Resource;
 
 /**
- * Describes a musical resource that can be played.
+ * {@inheritdoc}
  */
-class Resource
+class Resource implements ResourceInterface
 {
     /**
      * @var string
@@ -16,10 +16,10 @@ class Resource
 
     /**
      * @var string
-     *   The vendor of the source that instantiated this object.
-     *   See WishgranterProject\AetherMusic\SourceInterface::getVendor()
+     *   The service that provides this media to play.
+     *   See WishgranterProject\AetherMusic\SourceInterface::getProvider()
      */
-    protected string $vendor = '';
+    protected string $provider = '';
 
     /**
      * @var string
@@ -59,33 +59,28 @@ class Resource
     protected string $src = '';
 
     /**
-     * @param string $source
-     * @param string $vendor
-     * @param string $id
-     * @param string|null $title
-     * @param string|null $artist
-     * @param string|null $description
-     * @param string|null $thumbnail
-     * @param string|null src
+     * {@inheritdoc}
      */
     public function __construct(
         string $source,
-        string $vendor,
+        string $provider,
         string $id,
         ?string $title,
         ?string $artist,
         ?string $description = '',
         ?string $thumbnail = '',
-        ?string $src = ''
+        ?string $src = '',
+        ?string $href = ''
     ) {
         $this->source      = $source;
-        $this->vendor      = $vendor;
+        $this->provider    = $provider;
         $this->id          = $id;
         $this->title       = $title;
         $this->artist      = $artist;
         $this->description = $description;
         $this->thumbnail   = $thumbnail;
         $this->src         = $src;
+        $this->href        = $href;
     }
 
     public function __get($var)
@@ -101,9 +96,7 @@ class Resource
     }
 
     /**
-     * Creates a representation of the object as an associative array.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function toArray(): array
     {
@@ -113,8 +106,8 @@ class Resource
             $array['source'] = $this->source;
         }
 
-        if (!empty($this->vendor)) {
-            $array['vendor'] = $this->vendor;
+        if (!empty($this->provider)) {
+            $array['provider'] = $this->provider;
         }
 
         if (!empty($this->id)) {
@@ -141,27 +134,28 @@ class Resource
             $array['src'] = $this->src;
         }
 
+        if (!empty($this->href)) {
+            $array['href'] = $this->href;
+        }
+
         return $array;
     }
 
     /**
-     * Instantiate an object from an associative array.
-     *
-     * @param array $array
-     *
-     * @return Resource
+     * {@inheritdoc}
      */
-    public static function createFromArray(array $array): Resource
+    public static function createFromArray(array $array): ResourceInterface
     {
         return new self(
             !empty($array['source'])      ? $array['source']      : '',
-            !empty($array['vendor'])      ? $array['vendor']      : '',
+            !empty($array['provider'])    ? $array['provider']    : '',
             !empty($array['id'])          ? $array['id']          : '',
             !empty($array['title'])       ? $array['title']       : '',
             !empty($array['artist'])      ? $array['artist']      : '',
             !empty($array['description']) ? $array['description'] : '',
             !empty($array['thumbnail'])   ? $array['thumbnail']   : '',
-            !empty($array['src'])         ? $array['src']         : ''
+            !empty($array['src'])         ? $array['src']         : '',
+            !empty($array['href'])        ? $array['href']        : ''
         );
     }
 }

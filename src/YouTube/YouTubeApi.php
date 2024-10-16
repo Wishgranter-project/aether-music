@@ -1,13 +1,13 @@
 <?php
 
-namespace WishgranterProject\AetherMusic\Api;
+namespace WishgranterProject\AetherMusic\YouTube;
 
 use AdinanCenci\GenericRestApi\ApiBase;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Client\ClientInterface;
 
-class ApiYouTube extends ApiBase
+class YouTubeApi extends ApiBase
 {
     /**
      * @var string
@@ -40,7 +40,7 @@ class ApiYouTube extends ApiBase
 
     /**
      * @param string $query
-     *   A query to make to the api.
+     *   A query for our search.
      *
      * @return \stdClass|null
      */

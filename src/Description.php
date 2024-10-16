@@ -7,7 +7,7 @@ use WishgranterProject\AetherMusic\Helper\Validation;
 /**
  * Describes a piece of music or album.
  */
-class Description
+class Description implements DescriptionInterface
 {
     /**
      * @var string
@@ -46,15 +46,16 @@ class Description
     protected array $genre;
 
     /**
-     * @param string $title
-     * @param string|string[] $artist
-     * @param string $album
-     * @param string $cover
-     * @param string|string[] $soundtrack
-     * @param string|string[] $genre
+     * {@inheritdoc}
      */
-    public function __construct(string $title, $artist = [], string $album = '', $cover = '', $soundtrack = [], $genre = [])
-    {
+    public function __construct(
+        string $title,
+        $artist = [],
+        string $album = '',
+        $cover = '',
+        $soundtrack = [],
+        $genre = []
+    ) {
         if (!(empty($artist) || is_string($artist) || Validation::is($artist, 'string[]'))) {
             throw new \InvalidArgumentException('Artist must be a string or array of strings');
         }
@@ -88,9 +89,7 @@ class Description
     }
 
     /**
-     * Returns the description as a human readable string.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function __toString(): string
     {
@@ -118,9 +117,7 @@ class Description
     }
 
     /**
-     * Creates a representation of the object as an associative array.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function toArray(): array
     {
@@ -160,13 +157,9 @@ class Description
     }
 
     /**
-     * Instantiate an object from an associative array.
-     *
-     * @param array $array
-     *
-     * @return Description
+     * {@inheritdoc}
      */
-    public static function createFromArray(array $array): Description
+    public static function createFromArray(array $array): DescriptionInterface
     {
         return new self(
             !empty($array['title'])      ? $array['title']              : '',

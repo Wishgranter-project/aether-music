@@ -20,7 +20,8 @@ interface CriteriaInterface
     public function getId(): string;
 
     /**
-     * Returns the weight passed to the constructor.
+     * A score multiplier, how much this criteria weights when tallying the
+     * resource's likeness to the description.
      *
      * @return int
      */

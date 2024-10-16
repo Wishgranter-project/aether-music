@@ -10,15 +10,15 @@ abstract class BaseCriteria
 {
     /**
      * @var int
-     *   How much this criteria weights when tallying the resource's likeness
-     *   to the description.
+     *   A score multiplier, how much this criteria weights when tallying the
+     *   resource's likeness to the description.
      */
     protected int $weight;
 
     /**
      * @param int $weight
-     *   How much this criteria weights when tallying the resource's likeness
-     *   to the description.
+     *   A score multiplier, how much this criteria weights when tallying the
+     *   resource's likeness to the description.
      */
     public function __construct(int $weight = 1)
     {
@@ -26,9 +26,7 @@ abstract class BaseCriteria
     }
 
     /**
-     * Returns the weight passed to the constructor.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getWeight(): int
     {
@@ -42,5 +40,10 @@ abstract class BaseCriteria
     {
         $points = $this->getPoints($forResource, $basedOnDescription);
         return new Score($this, $points, $this->weight);
+    }
+
+    protected function getPoints(Resource $forResource, Description $basedOnDescription): int
+    {
+        return 0;
     }
 }
