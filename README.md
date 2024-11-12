@@ -19,15 +19,17 @@ use WishgranterProject\AetherMusic\Source\SourceYouTube;
 
 $apiYouTube = new ApiYouTube('your-youtube-api-key-goes-here');
 $youTube    = new SourceYouTube($apiYouTube);
+// Sources with higher priority will be consulted first.
+$priority   = 1;
 
 $aether->addSource($youTube, 1);
 ```
 
 <br><br>
 
-## 3. Searching
+## 3. Describing our target
 
-Once provided the sources, we can search for musics.
+Next step is clearly to know what we want.
 
 ```php
 use WishgranterProject\AetherMusic\Description;
@@ -45,14 +47,31 @@ $description = Description::createFromArray([
     'soundtrack' => 'Fallout 3'
 ]);
 
-$resources = $aether
-  ->search($description)
-  ->find();
+// Maybe you are looking for a music covered by a different artist.
+$description = Description::createFromArray([
+    'title'      => 'Fade to Black',
+    'artist'     => 'Disturbed',
+    'cover'      => 'Metallica'
+]);
+
 ```
 
 <br><br>
 
-## 4. Bettering our results
+
+## 4. Search
+
+Finally we search for musics.
+
+```php
+$resources = $aether
+    ->search($description)
+    ->find();
+```
+
+<br><br>
+
+## 5. Improving our results
 
 That's the basics, but the sources are fickle, depending on how unpopular our music is or how popular different music with similar descriptions are, our target may not be the very first in the search results, it may come second, third or further down.
 
@@ -67,9 +86,35 @@ $resources = $aether
   ->find();
 ```
 
-### 4.5. Custom criteria
+<br><br>
 
-However, if you wish to write your own, you may implement the `WishgranterProject\AetherMusic\Search\Sorting\Criteria\CriteriaInterface`.
+### 5.5. Custom sorting
+
+However, you can configure your own criteria if you wish.
+See the built-in criterias under `WishgranterProject\AetherMusic\Search\Sorting\Criteria`.
+
+```php
+use WishgranterProject\AetherMusic\Search\Sorting\Criteria\TitleCriteria;
+use WishgranterProject\AetherMusic\Search\Sorting\Criteria\ArtistCriteria;
+use WishgranterProject\AetherMusic\Search\Sorting\Criteria\UndesirableCriteria;
+
+$search = $aether->search($description);
+
+// Matching the artist in the $description weights 10 in the sorting algorithm.
+$search->addCriteria(new ArtistCriteria(10));
+// However a matching title weights double.
+$search->addCriteria(new TitleCriteria(20));
+// And the word "live" is a deal breaker...
+$search->addCriteria(new UndesirableCriteria(-100, 'live'));
+
+$resources = $search->find();
+```
+
+<br><br>
+
+### 5.75 Custom criteria
+
+Further, if you wish to write your own criteria, you may implement the `WishgranterProject\AetherMusic\Search\Sorting\Criteria\CriteriaInterface`.
 
 ```php
 $weight = 10;

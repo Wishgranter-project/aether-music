@@ -59,11 +59,12 @@ $results = $aether
 
 require 'head.html';
 ?>
+<h1>Search</h1>
 <form action="">
-    <input type="query" name="title" placeholder="Title" title="Title" value="<?php echo $title;?>" />
-    <input type="query" name="artist" placeholder="Artist" title="Artist" value="<?php echo $artist;?>" />
-    <input type="query" name="genre" placeholder="Genre" title="Genre" value="<?php echo $genre;?>" />
-    <input type="submit" value="Submit" />
+    <input type="search" name="title" placeholder="Title" title="Title" value="<?php echo $title;?>" />
+    <input type="search" name="artist" placeholder="Artist" title="Artist" value="<?php echo $artist;?>" />
+    <input type="search" name="genre" placeholder="Genre" title="Genre" value="<?php echo $genre;?>" />
+    <input type="submit" value="Search" />
 </form>
 <?php
 if (empty($title) || empty($artist)) {
@@ -79,7 +80,15 @@ die();
 }
 echo '<a href="2-with-cache.php">go back</a>';
 
-$table = '<table>';
+$table = '<table>
+    <tr>
+        <th colspan="2">
+            Result
+        </th>
+        <th>
+            Sorting criteria
+        </th>
+    </tr>';
 foreach ($results as $result) {
 
     $tally = $result->likenessTally->toArray();
@@ -116,10 +125,16 @@ foreach ($results as $result) {
         if (!$s['total']) {
             continue;
         }
-        $table .= $s['criteria'] . '<br/>p: ' . $s['points'] . ', w: ' . $s['weight'] . ' ( ' . $s['total'] . ' )<hr>';
+        $table .= $s['criteria'] .
+        '<br/><span title="points">p: ' .
+            $s['points'] .
+        '</span>, <span title="weight">w: ' .
+            $s['weight'] .
+        '</span> ( <span title="total">' .
+            $s['total'] .
+        '</span> )<hr>';
     }
 
-    
 
     $table .= 'Total: ' . $tally['total'];
 
