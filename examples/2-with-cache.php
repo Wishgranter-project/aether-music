@@ -3,6 +3,7 @@
 use AdinanCenci\FileCache\Cache;
 use WishgranterProject\AetherMusic\Aether;
 use WishgranterProject\AetherMusic\Description;
+use WishgranterProject\AetherMusic\LocalFiles\Source\SourceLocalFiles;
 use WishgranterProject\AetherMusic\YouTube\YouTubeApi;
 use WishgranterProject\AetherMusic\YouTube\Source\SourceYouTube;
 use WishgranterProject\AetherMusic\YouTube\Source\SourceYouTubeLax;
@@ -14,6 +15,10 @@ if (!file_exists('../vendor/autoload.php')) {
 require '../vendor/autoload.php';
 
 //-----------------------------------------------------------------------------
+
+if (!file_exists('./local_files')) {
+    mkdir('./local_files'); // put your mp3 files here.
+}
 
 if (!file_exists('./cache')) {
     mkdir('./cache');
@@ -32,7 +37,10 @@ if (file_exists('./.youtube-api-key')) {
 $youtubeApi = new YouTubeApi($youtubeApiKey, [], $cache);
 $youTube    = new SourceYouTube($youtubeApi);
 $youTubeLax = new SourceYouTubeLax($youtubeApi);
+$localFiles = new SourceLocalFiles(rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/local_files/', 'https://' . $_SERVER['HTTP_HOST'] . '/local_files/');
+
 $aether     = new Aether();
+$aether->addSource($localFiles, 3);
 $aether->addSource($youTube, 2);
 $aether->addSource($youTubeLax, 1);
 

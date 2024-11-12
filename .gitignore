@@ -3,3 +3,4 @@ vendor/
 
 examples/.youtube-api-key
 examples/cache
+examples/local_files
