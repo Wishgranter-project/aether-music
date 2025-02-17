@@ -147,10 +147,10 @@ class Description implements DescriptionInterface
                 : reset($this->soundtrack);
         }
 
-        if ($this->soundtrack) {
+        if ($this->genre) {
             $array['genre'] = count($this->genre) > 1
-                ? '(' . $this->genre . ')'
-                : '(' . reset($this->genre) . ')';
+                ? $this->genre
+                : reset($this->genre);
         }
 
         return $array;

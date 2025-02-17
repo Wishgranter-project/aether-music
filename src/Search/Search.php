@@ -90,6 +90,7 @@ class Search
             'demotape'   => -1,
             'demo'       => -1,
             'remixed'    => -1,
+            'remastered' => -1,
             'remix'      => -1,
             'live'       => -20, // FUCK NO!!!
             'tour'       => -20,
