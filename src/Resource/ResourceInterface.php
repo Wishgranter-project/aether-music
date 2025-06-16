@@ -3,7 +3,7 @@
 namespace WishgranterProject\AetherMusic\Resource;
 
 /**
- * Describes a resource that can be played.
+ * Describes a media resource that can be played.
  */
 interface ResourceInterface
 {
@@ -15,7 +15,7 @@ interface ResourceInterface
      *   The service that provides this media to play.
      *   See WishgranterProject\AetherMusic\SourceInterface::getProvider()
      * @param string $id
-     *   ID within the provider.
+     *   ID within the provider's system.
      * @param string|null $title
      *   Human readable string describing the resource.
      * @param string|null $artist
@@ -43,9 +43,12 @@ interface ResourceInterface
     );
 
     /**
-     * Creates a representation of the object as an associative array.
+     * Returns an array representation of the object.
+     *
+     * Useful to render it as a json string.
      *
      * @return array
+     *   The object as an array.
      */
     public function toArray(): array;
 
@@ -53,8 +56,10 @@ interface ResourceInterface
      * Instantiate an object out of an associative array.
      *
      * @param array $array
+     *   Associative array.
      *
-     * @return ResourceInterface
+     * @return WishgranterProject\AetherMusic\Resource\ResourceInterface
+     *   The new object instantiated from the array.
      */
     public static function createFromArray(array $array): ResourceInterface;
 }

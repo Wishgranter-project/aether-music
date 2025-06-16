@@ -42,9 +42,12 @@ interface DescriptionInterface
     public function __toString();
 
     /**
-     * Creates a representation of the object as an associative array.
+     * Returns an array representation of the object.
+     *
+     * Useful to render it as a json string.
      *
      * @return array
+     *   The object as an array.
      */
     public function toArray();
 

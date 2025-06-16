@@ -84,11 +84,13 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
     }
 
     /**
+     * Find files matching the description.
+     *
      * @param WishgranterProject\AetherMusic\Description $description
      *   Music description.
      *
      * @return string[]
-     *   Array of files.
+     *   Array of absolute path paths.
      */
     protected function findMatchingFiles(Description $description): array
     {
@@ -115,7 +117,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
      * List all sound files within our directory.
      *
      * @return string[]
-     *   A list of files.
+     *   Array of absolute paths.
      */
     protected function getFiles(): array
     {
@@ -155,7 +157,7 @@ class SourceLocalFiles extends SourceAbstract implements SourceInterface
     /**
      * Gets the extension of a $filename.
      *
-     * @string $filename
+     * @param string $filename
      *   The filename.
      *
      * @return string|null

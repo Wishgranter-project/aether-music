@@ -10,8 +10,9 @@ use Psr\Http\Client\ClientInterface;
 class YouTubeApi extends ApiBase
 {
     /**
+     * The YouTube api key.
+     *
      * @var string
-     *   The YouTube api key.
      */
     protected string $apiKey;
 

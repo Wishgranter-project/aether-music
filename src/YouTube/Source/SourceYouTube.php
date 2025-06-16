@@ -11,11 +11,15 @@ use WishgranterProject\AetherMusic\YouTube\YouTubeApi;
 class SourceYouTube extends SourceAbstract implements SourceInterface
 {
     /**
+     * Youtube API client.
+     *
      * @var WishgranterProject\AetherMusic\YouTube\YouTubeApi
      */
     protected YouTubeApi $youTubeApi;
 
     /**
+     * Constructor.
+     *
      * @param WishgranterProject\AetherMusic\YouTube\YouTubeApi $youTubeApi
      */
     public function __construct(YouTubeApi $youTubeApi)

@@ -22,6 +22,9 @@ class SoundtrackCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:soundtrack';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         if (!$basedOnDescription->soundtrack) {
@@ -32,7 +35,10 @@ class SoundtrackCriteria extends BaseCriteria implements CriteriaInterface
             return 1;
         }
 
-        if ($forResource->description && Text::substrCountArray($forResource->description, $basedOnDescription->soundtrack)) {
+        if (
+            $forResource->description &&
+            Text::substrCountArray($forResource->description, $basedOnDescription->soundtrack)
+        ) {
             return 1;
         }
 

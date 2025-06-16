@@ -10,6 +10,8 @@ use WishgranterProject\AetherMusic\Resource\Resource;
 class Aether
 {
     /**
+     * The sources where we'll be searching for our music.
+     *
      * @var (WishgranterProject\AetherMusic\Source\SourceInterface&int)[]
      */
     protected array $sources;
@@ -23,6 +25,7 @@ class Aether
      *   The priority, sources with higher priority will be consulted first.
      *
      * @return self
+     *   Returns itself.
      */
     public function addSource(SourceInterface $source, int $priority): Aether
     {
@@ -41,6 +44,7 @@ class Aether
      *   A description of the music.
      *
      * @return WishgranterProject\AetherMusic\Search\Search
+     *   The new search object.
      */
     public function search(Description $description): Search
     {
@@ -48,7 +52,7 @@ class Aether
     }
 
     /**
-     * Sort sources based on their priority.
+     * Sorts the sources based on their priority.
      */
     protected function sortSources()
     {

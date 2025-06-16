@@ -7,8 +7,8 @@ use WishgranterProject\AetherMusic\Resource\Resource;
 use WishgranterProject\AetherMusic\Search\Sorting\Score;
 
 /**
- * We will be using different criteria to determine how close a resource
- * matches our description.
+ * Represents a criteria to determine how close a playable resource matches
+ * the description of a music.
  */
 interface CriteriaInterface
 {
@@ -16,6 +16,7 @@ interface CriteriaInterface
      * Returns an unique string to identify the criteria.
      *
      * @return string
+     *   The id of the criteria.
      */
     public function getId(): string;
 
@@ -28,7 +29,8 @@ interface CriteriaInterface
     public function getWeight(): int;
 
     /**
-     * Compares a resource with a description and returns a score.
+     * Compares a playable resource with the description of a music and returns
+     * a score.
      *
      * @param WishgranterProject\AetherMusic\Resource\Resource $forResource
      *   The resource being scrutinized.

@@ -9,18 +9,32 @@ use WishgranterProject\AetherMusic\Search\Sorting\LikenessTally;
 class SearchResults implements \Iterator // ArrayAccess
 {
     /**
+     * List of search result items.
+     *
      * @var WishgranterProject\AetherMusic\Search\Item[]
      */
     protected array $results = [];
 
     /**
+     * Constructor.
+     *
      * @param WishgranterProject\AetherMusic\Search\Item[] $results
+     *   List of search result items.
      */
     public function __construct(array $results = [])
     {
         $this->results = $results;
     }
 
+    /**
+     * Return read-only values.
+     *
+     * @param string $var
+     *   Name of the property to return.
+     *
+     * @return mixed
+     *   The value if set, null otherwise.
+     */
     public function __get($var)
     {
         switch ($var) {
@@ -42,6 +56,14 @@ class SearchResults implements \Iterator // ArrayAccess
         return null;
     }
 
+    /**
+     * Returns an array representation of the object.
+     *
+     * Useful to render it as a json string.
+     *
+     * @return array
+     *   The object as an array.
+     */
     public function toArray()
     {
         $array = [
@@ -57,6 +79,12 @@ class SearchResults implements \Iterator // ArrayAccess
         return $array;
     }
 
+    /**
+     * Merges a set of search results with this one.
+     *
+     * @param array|WishgranterProject\AetherMusic\Search\SearchResults $results
+     *   The results to merge.
+     */
     public function merge($results)
     {
         if ($results instanceof SearchResults) {
@@ -73,10 +101,12 @@ class SearchResults implements \Iterator // ArrayAccess
     }
 
     /**
-     * Tally results accordingly.
+     * Tally results according to criteria.
      *
      * @param WishgranterProject\AetherMusic\Search\Sorting\CriteriaInterface[] $accordingToCriteria
+     *   List of criteria.
      * @param WishgranterProject\AetherMusic\Description $andDescription
+     *   Music description to use the criteria on.
      */
     public function tallyResults(array $accordingToCriteria, Description $andDescription)
     {
@@ -95,7 +125,17 @@ class SearchResults implements \Iterator // ArrayAccess
     }
 
     /**
-     * Sort Item objects based on their likeness tally.
+     * Sort Item objects by comparing their likeness tally with each other's.
+     *
+     * @param WishgranterProject\AetherMusic\Search\Item $result1
+     *   Search result.
+     * @param WishgranterProject\AetherMusic\Search\Item $result2
+     *   Search result.
+     *
+     * @return int
+     *   0 if equivalent.
+     *   -1 if $result1 scores higher.
+     *   1 if $result2 scores higher.
      */
     protected function sort(Item $result1, Item $result2): int
     {
@@ -122,8 +162,10 @@ class SearchResults implements \Iterator // ArrayAccess
      * Returns the number of results that scored $minScore or more.
      *
      * @param int $minScore
+     *   Minimum score.
      *
      * @return int
+     *   Number of matching results.
      */
     public function countResultsScoringAtLeast(int $minScore): int
     {
@@ -137,6 +179,7 @@ class SearchResults implements \Iterator // ArrayAccess
      * Returns the number of results.
      *
      * @return int
+     *   Number of search results.
      */
     public function count(): int
     {
@@ -168,10 +211,14 @@ class SearchResults implements \Iterator // ArrayAccess
      * Generates a likeness tally based on our criteria.
      *
      * @param WishgranterProject\AetherMusic\Resource\Resource $onResource
+     *   The resource to tally.
      * @param WishgranterProject\AetherMusic\Search\Sorting\CriteriaInterface[] $accordingToCriteria
+     *   The list criteria.
      * @param WishgranterProject\AetherMusic\Description $andDescription
+     *   The description used as the base.
      *
      * @return WishgranterProject\AetherMusic\Search\Sorting\LikenessTally
+     *   The tally scored by the resource.
      */
     protected function generateLikenessTally(Resource $onResource, $accordingToCriteria, $andDescription): LikenessTally
     {
@@ -186,9 +233,10 @@ class SearchResults implements \Iterator // ArrayAccess
     }
 
     /**
-     * Returns the summ of all the results' ponctuations.
+     * Returns the sum of all the results' ponctuations.
      *
      * @return int
+     *   All points summed up.
      */
     protected function getTotal(): int
     {
@@ -202,32 +250,48 @@ class SearchResults implements \Iterator // ArrayAccess
      * Return the average ponctuation for the search result.
      *
      * @return float
+     *   The average ponctuation.
      */
     protected function getAverage(): float
     {
         return $this->total / $this->count;
     }
 
+    /**
+     * \Iterator::current().
+     */
     public function current(): mixed
     {
         return current($this->results);
     }
 
+    /**
+     * \Iterator::key().
+     */
     public function key(): mixed
     {
         return key($this->results);
     }
 
+    /**
+     * \Iterator::next().
+     */
     public function next(): void
     {
         next($this->results);
     }
 
+    /**
+     * \Iterator::rewind().
+     */
     public function rewind(): void
     {
         reset($this->results);
     }
 
+    /**
+     * \Iterator::valid().
+     */
     public function valid(): bool
     {
         return isset($this->results[$this->key()]);

@@ -23,7 +23,7 @@ class Resource implements ResourceInterface
 
     /**
      * @var string
-     *   ID withing the source.
+     *   ID withing the provider's system.
      */
     protected string $id = '';
 
@@ -83,6 +83,15 @@ class Resource implements ResourceInterface
         $this->href        = $href;
     }
 
+    /**
+     * Return read-only values.
+     *
+     * @param string $var
+     *   Name of the property to return.
+     *
+     * @return mixed
+     *   The value if set, null otherwise.
+     */
     public function __get($var)
     {
         return isset($this->{$var})
@@ -90,6 +99,15 @@ class Resource implements ResourceInterface
             : null;
     }
 
+    /**
+     * Checks if a property is set.
+     *
+     * @param string $var
+     *   Name of the property to check.
+     *
+     * @return bool
+     *   True if the property is set.
+     */
     public function __isset($var)
     {
         return isset($this->{$var});

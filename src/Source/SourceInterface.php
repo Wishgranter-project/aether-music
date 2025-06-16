@@ -22,6 +22,8 @@ interface SourceInterface
     public function getProvider(): string;
 
     /**
+     * Searches for our description within the source.
+     *
      * @param WishgranterProject\AetherMusic\Description $description
      *   A description of a music.
      *

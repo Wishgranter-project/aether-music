@@ -14,34 +14,45 @@ use WishgranterProject\AetherMusic\Search\Sorting\Criteria\ArtistCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\UndesirableCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\LeftOverCriteria;
 
+/**
+ * Given the description of a piece of music, searches for matches within a
+ * finite list of sources and returns results ordered by their likeness to the
+ * description.
+ */
 class Search
 {
     /**
+     * The description of a music.
+     *
      * @var WishgranterProject\AetherMusic\Description
-     *   The description of a music.
      */
     protected Description $description;
 
     /**
+     * The sources where we may find our music.
+     *
      * @var WishgranterProject\AetherMusic\Source\SourceInterface[]
-     *   The sources where we may find our music.
      */
     protected array $onSources = [];
 
     /**
+     * The average likeness tally we are aiming for.
+     *
      * @var int
-     *   The average ponctuation we are aiming for.
      */
     protected int $averaging = 20;
 
     /**
+     * A list of criteria to judge how closely each resource matches
+     * the description.
+     *
      * @var WishgranterProject\AetherMusic\Search\Sorting\CriteriaInterface[]
-     *   A list of criteria to judge how closely each resource matches
-     *   the description.
      */
     protected array $criteria = [];
 
     /**
+     * Constructor.
+     *
      * @param WishgranterProject\AetherMusic\Description $description
      *   The description of a music.
      * @param WishgranterProject\AetherMusic\Source\SourceInterface[]
@@ -60,6 +71,7 @@ class Search
      *   A criteria to help sort the search results.
      *
      * @return self
+     *   Returns itself.
      */
     public function addCriteria(CriteriaInterface $criteria): Search
     {
@@ -68,9 +80,10 @@ class Search
     }
 
     /**
-     * Returns all the criterias.
+     * Returns all the sorting criteria.
      *
      * @return WishgranterProject\AetherMusic\Search\Sorting\CriteriaInterface[]
+     *   The sorting criteria.
      */
     public function getCriteria(): array
     {
@@ -81,6 +94,7 @@ class Search
      * A built-in pre set of criteria to sort resources.
      *
      * @return self
+     *   Returns itself.
      */
     public function addDefaultCriteria(): Search
     {
@@ -129,12 +143,13 @@ class Search
     }
 
     /**
-     * The average ponctuation we are aiming for.
+     * Sets the average likeness tally we are aiming for.
      *
      * @param int $points
      *   The average ponctuation.
      *
      * @return self
+     *   Returns itself.
      */
     public function averaging(int $points)
     {
@@ -143,9 +158,12 @@ class Search
     }
 
     /**
-     * Search for musics in the provided sources and return the results.
+     * Search for musics in the sources and return the results.
+     *
+     * Ordered by how closely they match $description.
      *
      * @return WishgranterProject\AetherMusic\Resource\Resource[]
+     *   Resources that match our $description.
      */
     public function find(): SearchResults
     {

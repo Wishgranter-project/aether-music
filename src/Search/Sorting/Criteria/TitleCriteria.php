@@ -22,6 +22,9 @@ class TitleCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:title';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         if (!$basedOnDescription->title) {

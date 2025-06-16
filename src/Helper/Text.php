@@ -5,6 +5,8 @@ namespace WishgranterProject\AetherMusic\Helper;
 abstract class Text
 {
     /**
+     * Count the number of substring occurrences.
+     *
      * Basically substr_count but case insensitive.
      *
      * @param string $haystack
@@ -48,9 +50,9 @@ abstract class Text
     }
 
     /**
-     * Count the number of substring occurrences.
+     * Count the number of intersections between strings.
      *
-     * Counts how many times string(s) from $needles occur inside strings from
+     * How many times string(s) from $needles occur inside strings from
      * $haystack.
      *
      * @param string|string[] $haystack
@@ -59,6 +61,7 @@ abstract class Text
      *   The substring(s) to search for.
      *
      * @return int
+     *   The number of times they intersect.
      */
     public static function substrIntersect($haystack, $needles): int
     {

@@ -9,9 +9,10 @@ use WishgranterProject\AetherMusic\Search\Sorting\Score;
 abstract class BaseCriteria
 {
     /**
+     * A score multiplier, how much this criteria weights when tallying the
+     * resource's likeness to the description.
+     *
      * @var int
-     *   A score multiplier, how much this criteria weights when tallying the
-     *   resource's likeness to the description.
      */
     protected int $weight;
 
@@ -42,6 +43,12 @@ abstract class BaseCriteria
         return new Score($this, $points, $this->weight);
     }
 
+    /**
+     * Returns how many points the resource gains.
+     *
+     * @return int
+     *   Points.
+     */
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         return 0;

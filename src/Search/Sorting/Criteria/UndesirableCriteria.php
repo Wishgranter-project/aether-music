@@ -12,12 +12,15 @@ use WishgranterProject\AetherMusic\Helper\Text;
 class UndesirableCriteria extends BaseCriteria implements CriteriaInterface
 {
     /**
+     * A term we rather not have in our search results.
+     *
      * @var string
-     *   A term we rather not have in our search results.
      */
     protected string $term;
 
     /**
+     * Constructor.
+     *
      * @param int $weight
      *   How much this criteria weights when tallying the resource's likeness
      *   to the description.
@@ -38,6 +41,9 @@ class UndesirableCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:undesirable:' . $this->term;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         $score = 0;

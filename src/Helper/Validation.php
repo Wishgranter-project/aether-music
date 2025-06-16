@@ -16,7 +16,9 @@ abstract class Validation
      *   The value to be checked.
      * @param string $ofTheExpectedType
      *   The type of data $value is supposed to be.
+     *
      * @return bool
+     *   True if is of the expected type.
      */
     public static function is($value, string $ofTheExpectedType): bool
     {
@@ -48,14 +50,15 @@ abstract class Validation
     }
 
     /**
-     * Checks if all the elements of an array conform with specified type
-     * validation.
+     * Checks if all the elements of an array are of a specified type.
      *
      * @param mixed $array
      *   The array which's value to check.
      * @param string $function
      *   The function to be used on the $array's elements.
+     *
      * @return bool
+     *   If all elements conform.
      */
     public static function isArrayOf($array, $function): bool
     {
@@ -76,8 +79,10 @@ abstract class Validation
      * Checks if a value is either a string or numeric.
      *
      * @param mixed $value
+     *   The value to check.
      *
      * @return bool
+     *   True if it is either a string or a number.
      */
     public static function isAlphanumeric($value): bool
     {

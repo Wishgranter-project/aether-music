@@ -10,38 +10,45 @@ use WishgranterProject\AetherMusic\Helper\Validation;
 class Description implements DescriptionInterface
 {
     /**
+     * The title of the music.
+     *
      * @var string
-     *   The title of the music.
      */
     protected string $title = '';
 
     /**
+     * The performing artist.
+     *
      * @var string[]
-     *   The performing artist.
      */
     protected array $artist = [];
 
     /**
      * The name of the album this music can be found in.
+     *
+     * @var string
      */
     protected string $album = '';
 
     /**
+     * The original artist if the music is being performed by someone else.
+     *
      * @var string
-     *   The original artist if the music is being performed by someone else.
      */
     protected string $cover = '';
 
     /**
+     * The name of an intelectual property featuring the music in its
+     * soundtrack like a video-game, a movie etc.
+     *
      * @var string[]
-     *   The name of an intelectual property featuring the music in its
-     *   soundtrack like a video-game, a movie etc.
      */
     protected array $soundtrack;
 
     /**
+     * The musical genre the music belongs to.
+     *
      * @var string[]
-     *   The musical genre the music belongs to.
      */
     protected array $genre;
 
@@ -76,6 +83,15 @@ class Description implements DescriptionInterface
         $this->genre      = (array) $genre;
     }
 
+    /**
+     * Return read-only values.
+     *
+     * @param string $var
+     *   Name of the property to return.
+     *
+     * @return mixed
+     *   The value if set, null otherwise.
+     */
     public function __get($var)
     {
         return isset($this->{$var})
@@ -83,6 +99,15 @@ class Description implements DescriptionInterface
             : null;
     }
 
+    /**
+     * Checks if a property is set.
+     *
+     * @param string $var
+     *   Name of the property to check.
+     *
+     * @return bool
+     *   True if the property is set.
+     */
     public function __isset(string $var): bool
     {
         return isset($this->{$var});

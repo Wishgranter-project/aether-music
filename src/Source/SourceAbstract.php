@@ -10,8 +10,10 @@ abstract class SourceAbstract
      * Builds a query out of a description.
      *
      * @param WishgranterProject\AetherMusic\Description $description
+     *   The description of a music.
      *
      * @return string
+     *   String to query the source.
      */
     public function buildQuery(Description $description): string
     {

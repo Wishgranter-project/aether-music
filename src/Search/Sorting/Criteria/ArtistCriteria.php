@@ -23,6 +23,9 @@ class ArtistCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:artist';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         // No artist in the description, skip.

@@ -28,6 +28,9 @@ class LeftOverCriteria extends BaseCriteria implements CriteriaInterface
         return 'criteria:leftover';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getPoints(Resource $forResource, Description $basedOnDescription): int
     {
         $titleMinusDescription = strtolower($forResource->title);
