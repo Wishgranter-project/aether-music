@@ -26,9 +26,10 @@
         }
     },
     "require": {
-        "adinan-cenci/psr-18": "dev-master",
-        "adinan-cenci/file-cache": "dev-master",
-        "adinan-cenci/generic-rest-api": "dev-master"
+        "adinan-cenci/file-cache": "^2.0",
+        "adinan-cenci/generic-rest-api": "dev-master",
+        "adinan-cenci/psr-7": "^2.0",
+        "adinan-cenci/psr-17": "^2.1"
     },
     "require-dev": {
         "php-http/psr7-integration-tests": "1.x-dev"
