@@ -117,7 +117,7 @@ if (empty($title) || empty($artist)) {
     <li><a href="?genre=Doom+Metal&artist=Pallbearer&title=The+Ghost+I+Used+to+Be">The Ghost I Used to Be - Pallbearer</a></li>
     <li><a href="?genre=Power+Metal&artist=Hammer+King&title=Glory+to+the+Hammer+King">Glory to the Hammer King - Hammer King</a></li>
     <li><a href="?genre=Power+Metal&artist=Space+Cadets&title=The+Human+Condition">The Human Condition - Space Cadets</a></li>
-    <li><a href="?genre=Power+Metal&artist=Histerica&title=Breaking+the+walls">Breaking the walls - Histerica</a></li>
+    <li><a href="?genre=Power+Metal&artist=Hysterica&title=Breaking+the+walls">Breaking the walls - Hysterica</a></li>
     <li><a href="?genre=Metal&artist=Davester2296&title=Painful+Dreams&cover=Robert+Prince&soundtrack=D64D2">Painful Dreams - Davester2296</a></li>
 </ul>
 <?php
