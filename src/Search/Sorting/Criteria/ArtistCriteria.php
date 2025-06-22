@@ -4,6 +4,7 @@ namespace WishgranterProject\AetherMusic\Search\Sorting\Criteria;
 
 use WishgranterProject\AetherMusic\Description;
 use WishgranterProject\AetherMusic\Resource\Resource;
+use WishgranterProject\AetherMusic\Helper\English;
 use WishgranterProject\AetherMusic\Helper\Text;
 
 /**
@@ -33,17 +34,66 @@ class ArtistCriteria extends BaseCriteria implements CriteriaInterface
             return 0;
         }
 
+        $artist = $basedOnDescription->artist;
+        $points = $this->checkForArtist($forResource, $artist);
+
+        // Let's be a bit lenient with the artist's name ...
+        if ($points < 0) {
+            $variation = $this->unpluralize($artist);
+            $points = $artist != $variation
+                ? $this->checkForArtist($forResource, $variation)
+                : $points;
+        }
+
+        return $points;
+    }
+
+    /**
+     * Checks if the artist's name is present in the resource.
+     *
+     * @param WishgranterProject\AetherMusic\Resource\Resource
+     *   The playable resource to check.
+     * @param string|array $artist
+     *   The artist's name.
+     *
+     * @return int
+     *   Negative number if it isn't. Positive if it is.
+     */
+    protected function checkForArtist(Resource $forResource, mixed $artist): int
+    {
         if ($forResource->artist) {
             // Resource has an artist!
-            return Text::substrIntersect($forResource->artist, $basedOnDescription->artist)
+            return Text::substrIntersect($forResource->artist, $artist)
                 ?  2
                 : -2;
         }
 
         // Title or description will do...
-        return Text::substrIntersect($forResource->title, $basedOnDescription->artist) ||
-               Text::substrIntersect($forResource->description, $basedOnDescription->artist)
+        return Text::substrIntersect($forResource->title, $artist) ||
+               Text::substrIntersect($forResource->description, $artist)
             ?  1
             : -1;
+    }
+
+    /**
+     * Unpluralize one or more strings.
+     *
+     * @param string|array $strings
+     *   A string or array of strings.
+     *
+     * @return string|array
+     *   The parameter now in singular.
+     */
+    protected function unpluralize($strings)
+    {
+        if (! is_array($strings)) {
+            return English::unpluralize($strings);
+        }
+
+        foreach ($strings as $k => $v) {
+            $strings[$k] = English::unpluralize($v);
+        }
+
+        return $strings;
     }
 }
