@@ -13,6 +13,7 @@ use WishgranterProject\AetherMusic\Search\Sorting\Criteria\SoundtrackCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\ArtistCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\UndesirableCriteria;
 use WishgranterProject\AetherMusic\Search\Sorting\Criteria\LeftOverCriteria;
+use WishgranterProject\AetherMusic\Search\Sorting\Criteria\LiveEventDateCriteria;
 
 /**
  * Given the description of a piece of music, searches for matches within a
@@ -106,11 +107,11 @@ class Search
             'remixed'    => -1,
             'remastered' => -1,
             'remix'      => -1,
-            'live'       => -20, // FUCK NO!!!
-            'tour'       => -20,
-            'full album' => -20,
-            'reaction'   => -20,
-            'karaoke'    => -20,
+            'live'       => -40, // FUCK NO!!!
+            'tour'       => -40,
+            'full album' => -40,
+            'reaction'   => -40,
+            'karaoke'    => -40,
         ];
 
         if ($this->description->cover) {
@@ -138,6 +139,9 @@ class Search
         foreach ($undesirables as $term => $weight) {
             $this->addCriteria(new UndesirableCriteria($weight, $term));
         }
+
+        $this
+            ->addCriteria(new LiveEventDateCriteria(40));
 
         return $this;
     }
