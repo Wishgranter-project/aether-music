@@ -19,7 +19,7 @@
             "email": "adinancenci@protonmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "WishgranterProject\\AetherMusic\\": "src/"
@@ -27,16 +27,8 @@
     },
     "require": {
         "adinan-cenci/file-cache": "^2.0",
-        "adinan-cenci/generic-rest-api": "dev-master",
+        "adinan-cenci/generic-rest-api": "^1.0",
         "adinan-cenci/psr-7": "^2.0",
         "adinan-cenci/psr-17": "^2.1"
-    },
-    "require-dev": {
-        "php-http/psr7-integration-tests": "1.x-dev"
-    },
-    "scripts": {
-        "unit-tests": [
-            "./vendor/bin/phpunit tests"
-        ]
     }
 }
