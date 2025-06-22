@@ -55,6 +55,10 @@ class UndesirableCriteria extends BaseCriteria implements CriteriaInterface
 
         $score = Text::substrIntersect($forResource->title, $this->term);
 
+        if (!$score && $forResource->description) {
+            $score = Text::substrIntersect($forResource->description, $this->term);
+        }
+
         return $score;
     }
 
