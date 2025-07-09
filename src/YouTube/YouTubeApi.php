@@ -12,6 +12,8 @@ class YouTubeApi extends ApiBase
     /**
      * The YouTube api key.
      *
+     * Get one at https://console.cloud.google.com/apis/dashboard
+     *
      * @var string
      */
     protected string $apiKey;
