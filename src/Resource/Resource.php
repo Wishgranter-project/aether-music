@@ -59,6 +59,12 @@ class Resource implements ResourceInterface
     protected string $src = '';
 
     /**
+     * @var string
+     *   An URL to the resource's web page.
+     */
+    protected string $href = '';
+
+    /**
      * {@inheritdoc}
      */
     public function __construct(
