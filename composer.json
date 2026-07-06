@@ -28,7 +28,6 @@
     "require": {
         "adinan-cenci/file-cache": "^2.0",
         "adinan-cenci/generic-rest-api": "^2.0",
-        "adinan-cenci/psr-7": "^2.0",
         "adinan-cenci/psr-17": "^2.1"
     }
 }
