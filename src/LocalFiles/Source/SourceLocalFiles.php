@@ -14,29 +14,15 @@ use WishgranterProject\AetherMusic\Source\SourceInterface;
 class SourceLocalFiles extends SourceAbstract implements SourceInterface
 {
     /**
-     * Absolute path to the directory where to find the files.
-     *
-     * @var string
-     */
-    protected string $directory;
-
-    /**
-     * Absolute URL for the $directory.
-     *
-     * @var string
-     */
-    protected string $baseHref;
-
-    /**
      * @param string $directory
      *   Absolute path to the directory where to find the files.
      * @param string $baseHref
      *   Absolute URL for the $directory.
      */
-    public function __construct(string $directory, string $baseHref)
-    {
-        $this->directory = $directory;
-        $this->baseHref  = $baseHref;
+    public function __construct(
+        protected string $directory,
+        protected string $baseHref
+    ) {
     }
 
     /**

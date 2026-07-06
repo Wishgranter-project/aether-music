@@ -8,85 +8,19 @@ namespace WishgranterProject\AetherMusic\Resource;
 class Resource implements ResourceInterface
 {
     /**
-     * @var string
-     *   The id of the source that instantiated this object.
-     *   See WishgranterProject\AetherMusic\SourceInterface::getId()
-     */
-    protected string $source = '';
-
-    /**
-     * @var string
-     *   The service that provides this media to play.
-     *   See WishgranterProject\AetherMusic\SourceInterface::getProvider()
-     */
-    protected string $provider = '';
-
-    /**
-     * @var string
-     *   ID withing the provider's system.
-     */
-    protected string $id = '';
-
-    /**
-     * @var string
-     *   Human readable string describing the resource.
-     */
-    protected string $title = '';
-
-    /**
-     * @var string
-     *   The performing artist, if available.
-     */
-    protected string $artist = '';
-
-    /**
-     * @var string
-     *   Human readable string describing the resource.
-     */
-    protected string $description = '';
-
-    /**
-     * @var string
-     *   An URI to a thumbnail picture.
-     */
-    protected string $thumbnail = '';
-
-    /**
-     * @var string
-     *   An URI to a playable multimedia.
-     *   Like a mp4 file for example.
-     */
-    protected string $src = '';
-
-    /**
-     * @var string
-     *   An URL to the resource's web page.
-     */
-    protected string $href = '';
-
-    /**
      * {@inheritdoc}
      */
     public function __construct(
-        string $source,
-        string $provider,
-        string $id,
-        ?string $title,
-        ?string $artist,
-        ?string $description = '',
-        ?string $thumbnail = '',
-        ?string $src = '',
-        ?string $href = ''
+        protected string $source,
+        protected string $provider,
+        protected string $id,
+        protected ?string $title,
+        protected ?string $artist,
+        protected ?string $description = '',
+        protected ?string $thumbnail = '',
+        protected ?string $src = '',
+        protected ?string $href = ''
     ) {
-        $this->source      = $source;
-        $this->provider    = $provider;
-        $this->id          = $id;
-        $this->title       = $title;
-        $this->artist      = $artist;
-        $this->description = $description;
-        $this->thumbnail   = $thumbnail;
-        $this->src         = $src;
-        $this->href        = $href;
     }
 
     /**

@@ -10,58 +10,15 @@ use WishgranterProject\AetherMusic\Helper\Validation;
 class Description implements DescriptionInterface
 {
     /**
-     * The title of the music.
-     *
-     * @var string
-     */
-    protected string $title = '';
-
-    /**
-     * The performing artist.
-     *
-     * @var string[]
-     */
-    protected array $artist = [];
-
-    /**
-     * The name of the album this music can be found in.
-     *
-     * @var string
-     */
-    protected string $album = '';
-
-    /**
-     * The original artist if the music is being performed by someone else.
-     *
-     * @var string
-     */
-    protected string $cover = '';
-
-    /**
-     * The name of an intelectual property featuring the music in its
-     * soundtrack like a video-game, a movie etc.
-     *
-     * @var string[]
-     */
-    protected array $soundtrack;
-
-    /**
-     * The musical genre the music belongs to.
-     *
-     * @var string[]
-     */
-    protected array $genre;
-
-    /**
      * {@inheritdoc}
      */
     public function __construct(
-        string $title,
-        $artist = [],
-        string $album = '',
-        $cover = '',
-        $soundtrack = [],
-        $genre = []
+        protected string $title,
+        protected $artist = [],
+        protected string $album = '',
+        protected $cover = '',
+        protected $soundtrack = [],
+        protected $genre = []
     ) {
         if (!(empty($artist) || is_string($artist) || Validation::is($artist, 'string[]'))) {
             throw new \InvalidArgumentException('Artist must be a string or array of strings');
@@ -75,10 +32,7 @@ class Description implements DescriptionInterface
             throw new \InvalidArgumentException('Genre must be a string or array of strings');
         }
 
-        $this->title      = $title;
         $this->artist     = (array) $artist;
-        $this->album      = $album;
-        $this->cover      = $cover;
         $this->soundtrack = (array) $soundtrack;
         $this->genre      = (array) $genre;
     }
