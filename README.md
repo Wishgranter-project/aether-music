@@ -1,3 +1,6 @@
+> [!WARNING]  
+> Library archived. Check out its successor: [wishgranter-project/music-radar](https://github.com/wishgranter-project/music-radar).
+
 # Aether music
 
 A library to find music in the internet.
